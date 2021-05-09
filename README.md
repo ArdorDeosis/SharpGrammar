@@ -1,51 +1,107 @@
 # SharpGrammar
 
-// TODO: write intro
+:construction: _write intro_
 
 ## Creating a Grammar
 ### Processables
 
-A SharpGrammar grammar is created implicitly by defining at least one `Processable`. A `Processable` is a building block that can be evaluated within a given context (TODO: link to context). Evaluation of a `Processable` is triggered by calling its `.Process()` method.
+A SharpGrammar grammar is created implicitly by defining at least one `Processable`. A `Processable` is a building block that can be evaluated within a given [context](#context). Evaluation of a processable is triggered by calling its `.Process()` method.
 
 ```C#
-var food = Rule.ChooseRandom("pizza", "salad");
-food.Process(); // returns either "pizza" or "salad"
+var food = Rule.SelectRandom("pizza", "salad");
+
+// prints either "pizza" or "salad"
+Console.WriteLine(food.Process());
 ```
 
-`Processable`s can be concatenated with the `+` operator and strings are implicitly converted.
+Processables can be concatenated with the `+` operator and strings are implicitly converted.
 
 ```C#
 // note that dinnerSentence is not a string, but a Processable.
 var dinnerSentence = "Today I'll have " + food + " for dinner.";
 
-dinnerSentence.Process(); // returns either "Today I'll have pizza for dinner." or "Today I'll have salad for dinner."
+// prints either    "Today I'll have pizza for dinner."
+// or               "Today I'll have salad for dinner."
+Console.WriteLine(dinnerSentence.Process());
 ```
-In this example the strings `"Today I'll have "` and `" for dinner."` are converted to `Processable`s that always evaluate to the respective strings.
+_Note that the strings _"Today I'll have "_ and _" for dinner."_ are converted to processables that always evaluate to the respective strings._
+
+#### Instantiating Processables
+
+With the intention to make composition of processables more readable, they are created through factory-pattern methods, implicit conversion and operators in the `SharpGrammar.API` namespace (instead of directly calling constructors).
+
+Instead of calling ...
+
+```C#
+Processable a = new ValueProcessable("pizza");
+Processable b = new SelectRandomProcessable("salad", a);
+Processable c = new ProcessableList("I like to eat ", b);
+```
+... you call ...
+
+```C#
+Processable a = "pizza";
+Processable b = Rule.SelectRandom("salad", a);
+Processable c = "I like to eat " + b;
+```
 
 ### Context
 
-Every `Processable` is processed within a context. The context is provided by the `IContext` interface. `IContext` provides random number generation as well as some memory functionality. An `IContext` object does not have to be created manually, the `.Process()` method creates context for you. If you decide to manually create a context, e.g. to have control over the seed of the RNG, you can just pass it into the `.Process()` method.
+Every processable is processed within a context. The context is provided by the `IContext` interface. `IContext` provides random number generation as well as some memory functionality. A context does not have to be created manually, the `.Process()` method creates context for you. If you decide to manually create a context, e.g. to have control over the seed of the RNG, you can just pass it into the `.Process()` method.
 
 ```C#
 var context = new Context(seed: 1337);
-food.Process(context);
+Console.WriteLine(food.Process(context));
 ```
 
-The contexts memory functionality is also accessed via `Processable`s. These `Processable`s (and some others, too) do not produce any result, they return an empty string.
+The context's memory functionality is also accessed via `Processable`s. These `Processable`s (and some others, too) do not produce any result, they return an empty string.
 
 ```C#
+// This could produce an inconsistent sentence, since food is evaluated twice.
 var inconsistentSentence = "I like " + food + ", because " + food + " is delicious.";
-inconsistentSentence.Process(); // This could return an inconsistent sentence, since food is evaluated twice.
 
+// This always produces a consistent sentence.
 var consistentSentence = Memory.Set("myFood", food, true) +
     "I like " + Memory.Get("myFood") + ", because " + Memory.Get("myFood") + " is delicious.";
-consistentSentence.Process(); // This always returns a consistent sentence. 
 ```
 
 ## A Comprehensive List of built-in Processables
 
-// TODO
+:construction: _link all entries to their own documentation pages_
+
+### SharpGrammar.API.Rule
+
+* Rule.Nothing
+* Rule.Value
+* Rule.OneOf
+* Rule.Iterate
+
+### SharpGrammar.API.Memory
+
+* Memory.Set
+* Memory.SetIfUnset
+* Memory.Unset
+* Memory.Get
+* Memory.TryGet
+* Memory.SetNumber
+* Memory.SetNumberIfUnset
+* Memory.IncrementNumber
+* Memory.DecrementNumber
+* Memory.UnsetNumber
+* Memory.GetNumber
+* Memory.TryGetNumber
+
+### SharpGrammar.API.Flow
+
+* Flow.Repeat
+* Flow.If
+
+### SharpGrammar.API.Command
+
+* Command.Do
+* Command.Transform
+
 
 ## Extending SharpGrammar
 
-// TODO
+:construction:
