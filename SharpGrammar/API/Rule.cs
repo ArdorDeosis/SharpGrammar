@@ -21,10 +21,10 @@ namespace SharpGrammar.API
         /// </summary>
         /// <param name="values">The values to choose from.</param>
         /// <returns></returns>
-        public static Processable SelectRandom(params WeightedOutcome[] values) => new SelectRandomProcessable(values);
+        public static Processable OneOf(params WeightedOutcome[] values) => new OneOfProcessable(values);
         
-        /// <inheritdoc cref="SelectRandom(WeightedOutcome[])"/>
-        public static Processable SelectRandom(IEnumerable<WeightedOutcome> values) => SelectRandom(values.ToArray());
+        /// <inheritdoc cref="OneOf(SharpGrammar.WeightedOutcome[])"/>
+        public static Processable OneOf(IEnumerable<WeightedOutcome> values) => OneOf(values.ToArray());
 
         /// <summary>
         /// Iterates over the <paramref name="values"/> producing one at a time.

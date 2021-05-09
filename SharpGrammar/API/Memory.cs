@@ -9,18 +9,9 @@ namespace SharpGrammar.API
         /// <param name="name">Name of the variable.</param>
         /// <param name="value">Value of the variable.</param>
         /// <param name="preprocess">Whether the value should be preprocessed.</param>
-        public static Processable Set(string name, Processable value, bool preprocess = false) =>
-            new SetValueProcessable(name, value, preprocess, true);
-        
-        /// <summary>
-        /// Sets the variable named <paramref name="name"/> to <paramref name="value"/> if it is unset.
-        /// Produces no value.
-        /// </summary>
-        /// <param name="name">Name of the variable.</param>
-        /// <param name="value">Value of the variable.</param>
-        /// <param name="preprocess">Whether the value should be preprocessed.</param>
-        public static Processable SetIfUnset(string name, Processable value, bool preprocess = false) =>
-            new SetValueProcessable(name, value, preprocess, false);
+        /// <param name="override">Whether an existing value should be overridden.</param>
+        public static Processable Set(string name, Processable value, bool preprocess = true, bool @override = true) =>
+            new SetValueProcessable(name, value, preprocess, @override);
         
         /// <summary>
         /// Unsets the variable named <paramref name="name"/>.
@@ -51,17 +42,9 @@ namespace SharpGrammar.API
         /// </summary>
         /// <param name="name">Name of the number.</param>
         /// <param name="value">Value to set the number to.</param>
-        public static Processable SetNumber(string name, int value) =>
-            new SetNumberProcessable(name, value, true);
-
-        /// <summary>
-        /// Sets the number named <paramref name="name"/> to <paramref name="value"/> if it is unset.
-        /// Produces no value.
-        /// </summary>
-        /// <param name="name">Name of the number.</param>
-        /// <param name="value">Value to set the number to.</param>
-        public static Processable SetNumberIfUnset(string name, int value) =>
-            new SetNumberProcessable(name, value, false);
+        /// <param name="override">Whether an existing number should be overridden.</param>
+        public static Processable SetNumber(string name, int value, bool @override = true) =>
+            new SetNumberProcessable(name, value, @override);
 
         /// <summary>
         /// Unsets the number named <paramref name="name"/>.

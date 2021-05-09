@@ -2,11 +2,11 @@ using System.Linq;
 
 namespace SharpGrammar
 {
-    internal class SelectRandomProcessable : Processable
+    internal class OneOfProcessable : Processable
     {
         private readonly WeightedOutcome[] outcomes;
         
-        internal SelectRandomProcessable(params WeightedOutcome[] outcomes) => this.outcomes = outcomes;
+        internal OneOfProcessable(params WeightedOutcome[] outcomes) => this.outcomes = outcomes;
 
         /// <inheritdoc />
         public override string Process(IContext context)
@@ -20,7 +20,7 @@ namespace SharpGrammar
                     return outcome.processable.Process(context);
             }
 
-            throw new GrammarProcessingException(nameof(SelectRandomProcessable),
+            throw new GrammarProcessingException(nameof(OneOfProcessable),
                 "Pointer has not been reached. Are there some weights <= 0?");
         }
     }
