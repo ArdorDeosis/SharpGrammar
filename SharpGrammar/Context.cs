@@ -15,6 +15,11 @@ namespace SharpGrammar
         string NullValue { get; }
         
         /// <summary>
+        /// The method to concatenate two <see cref="Processable"/>s.
+        /// </summary>
+        Func<string, string, string> Concatenate { get; }
+        
+        /// <summary>
         /// Returns a random integer between 0 (incl.) and <paramref name="max"/> (excl.). 
         /// </summary>
         int GetRandomInt(int max);
@@ -101,7 +106,11 @@ namespace SharpGrammar
             random = new Random(seed);
         }
 
+        /// <inheritdoc />
         public string NullValue => string.Empty;
+
+        /// <inheritdoc />
+        public Func<string, string, string> Concatenate => string.Concat; 
 
         /// <inheritdoc />
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is less than 0.</exception>

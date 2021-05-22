@@ -11,7 +11,9 @@ namespace SharpGrammar
 
         /// <inheritdoc />
         public override string Process(IContext context) =>
-            string.Join("", items.Select(rule => rule.Process(context)));
+            items
+                .Select(rule => rule.Process(context))
+                .Aggregate(context.Concatenate);
 
         /// <summary>
         /// Concatenates two <see cref="Processable"/>s.

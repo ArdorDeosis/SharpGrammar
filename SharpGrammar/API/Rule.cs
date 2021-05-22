@@ -29,7 +29,12 @@ namespace SharpGrammar.API
         /// <summary>
         /// Iterates over the <paramref name="values"/> producing one at a time.
         /// </summary>
+        /// <param name="randomization">If and how the iteration process is randomized.</param>
         /// <param name="values">The values to produce.</param>
+        public static Processable Iterate(IteratorRandomization randomization, params Processable[] values) =>
+            new IteratorProcessable(values, randomization);
+        
+        /// <inheritdoc cref="Iterate(SharpGrammar.IteratorRandomization,SharpGrammar.Processable[])"/>
         public static Processable Iterate(params Processable[] values) => new IteratorProcessable(values);
 
         /// <inheritdoc cref="Iterate(Processable[])"/>
