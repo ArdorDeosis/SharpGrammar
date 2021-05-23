@@ -10,34 +10,63 @@ namespace LSTest
     {
         static void Main(string[] args)
         {
-            DataClass data = new ();
+            Dwarf dwarf = new ();
             
-            Console.WriteLine($"fresh instance:   {data}");
+            Console.WriteLine($"fresh instance:   {dwarf}");
 
-            Dictionary<PropertyInfo, GeneratorAttribute> propertyBindings = new ();
-            Dictionary<FieldInfo, GeneratorAttribute> fieldBindings = new ();
+            var bindings = GetBindings(dwarf);
 
-            // collect data
-            var flags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
-            foreach (var propertyInfo in data.GetType().GetProperties(flags))
-            {
-                if (Attribute.GetCustomAttribute(propertyInfo, typeof(GeneratorAttribute)) is GeneratorAttribute attribute)
-                    propertyBindings.Add(propertyInfo, attribute);
-            }
-            foreach (var fieldInfo in data.GetType().GetFields(flags))
-            {
-                if (Attribute.GetCustomAttribute(fieldInfo, typeof(GeneratorAttribute)) is GeneratorAttribute attribute)
-                    fieldBindings.Add(fieldInfo, attribute);
-            }
-            
             // generate data
-            foreach (var info in propertyBindings.Keys)
-                info.SetValue(data, propertyBindings[info].Generator.Generate());
-            foreach (var info in fieldBindings.Keys)
-                info.SetValue(data, fieldBindings[info].Generator.Generate());
-            
-            
-            Console.WriteLine($"after generation: {data}");
+            foreach (var info in bindings.Keys)
+            {
+                Console.WriteLine($"handling {info.Name}");
+                // do
+                // {
+                    SetValue(dwarf, info, bindings[info].Generate());
+                // } while (dwarf.Name.Length < 15);
+            }
+
+
+            Console.WriteLine($"after generation: {dwarf}");
+        }
+
+        private static void SetValue(object data, MemberInfo info, object value)
+        {
+            switch (info)
+            {
+                case PropertyInfo propertyInfo:
+                    propertyInfo.SetValue(data, value);
+                    break;
+                case FieldInfo fieldInfo:
+                    fieldInfo.SetValue(data, value);
+                    break;
+            }
+        }
+
+        private static Dictionary<MemberInfo, IGenerator<object>> GetBindings(object data)
+        {
+            Dictionary<MemberInfo, IGenerator<object>> bindings = new();
+            const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
+            foreach (var memberInfo in data.GetType().GetMembers(flags).Where(info => info is PropertyInfo or FieldInfo))
+            {
+                Console.WriteLine($"found {memberInfo.Name}");
+                var memberType = memberInfo switch
+                {
+                    FieldInfo fieldInfo => fieldInfo.FieldType,
+                    PropertyInfo propertyInfo => propertyInfo.PropertyType,
+                    _ => throw new Exception("Neither a Field nor Property")
+                };
+
+                var generatorType = typeof(IGenerator).MakeGenericType(memberType);
+                
+                if (Attribute.GetCustomAttribute(memberInfo, typeof(GeneratorAttribute)) is GeneratorAttribute attribute)
+                {
+                    Convert.ChangeType(attribute.Generator, generatorType);
+                    Console.WriteLine($"added {memberInfo.Name}");
+                    bindings.Add(memberInfo, Convert.ChangeType(attribute.Generator, generatorType));
+                }
+            }
+            return bindings;
         }
     }
 }
