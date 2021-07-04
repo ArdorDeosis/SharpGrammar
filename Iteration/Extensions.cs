@@ -1,4 +1,4 @@
-namespace SharpGrammar
+namespace SharpGrammar.Iteration
 {
     internal static class Extensions
     {
@@ -8,7 +8,7 @@ namespace SharpGrammar
         internal static void Shuffle<T>(this T[] array, IContext context)
         {
             var n = array.Length;
-            while (n > 1) 
+            while (n > 1)
             {
                 var k = context.GetRandomInt(n--);
                 var temp = array[n];

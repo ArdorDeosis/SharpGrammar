@@ -1,4 +1,6 @@
-﻿namespace SharpGrammar.NumberModule
+﻿using SharpGrammar.Counting.Processables;
+
+namespace SharpGrammar.Counting.API
 {
     public static class Number
     {

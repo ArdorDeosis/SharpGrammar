@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpGrammar.NumberModule
+namespace SharpGrammar.Counting
 {
     /// <summary>
     /// A module providing simple counting functionality.

@@ -40,8 +40,9 @@ namespace DwarfNameGenerator
             "Mal", "Mjöl", "Mjol", "Mul", "Pal", "Sal", "Tafl", "Tofl", "Tjal", "Tjöl", "Ul", "Val", "Vil", "Völ",
             "Yl");
 
-        private static readonly Processable DwarfNameMiddle  = Take.OneOf("gri", "ra", "ri", "na", "kja", "ja", "bor", "bran", "bjar",
-                "grim", "mun", "var", "dal", "del", "dil", "svin");
+        private static readonly Processable DwarfNameMiddle = Take.OneOf("gri", "ra", "ri", "na", "kja", "ja", "bor",
+            "bran", "bjar",
+            "grim", "mun", "var", "dal", "del", "dil", "svin");
 
         private static Processable DwarfNameEnd => Take.OneOf(
             DwarfNameEndStartingWithConsonant,

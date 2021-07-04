@@ -1,6 +1,6 @@
 using System;
 
-namespace SharpGrammar.NumberModule
+namespace SharpGrammar.Counting.Processables
 {
     internal class SetNumberProcessable : Processable
     {

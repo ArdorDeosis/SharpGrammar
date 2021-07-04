@@ -1,4 +1,4 @@
-namespace SharpGrammar
+namespace SharpGrammar.Iteration
 {
     /// <summary>
     /// <list type="table">
@@ -22,7 +22,7 @@ namespace SharpGrammar
         Once,
         EveryCycle
     }
-    
+
     internal class IteratorProcessable : Processable
     {
         private readonly Processable[] outcomes;

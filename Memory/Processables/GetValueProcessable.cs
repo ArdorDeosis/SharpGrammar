@@ -1,6 +1,6 @@
 using System;
 
-namespace SharpGrammar.MemoryModule
+namespace SharpGrammar.Memory.Processables
 {
     internal class GetValueProcessable : Processable
     {

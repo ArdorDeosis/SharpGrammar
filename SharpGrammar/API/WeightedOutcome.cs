@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SharpGrammar
 {
@@ -24,6 +25,7 @@ namespace SharpGrammar
             new(processable, 1);
         
         /// <exception cref="ArgumentException">If the provided <paramref name="tuple.weight"/> is negative.</exception>
+        [SuppressMessage("ReSharper", "CA2208")]
         public static implicit operator WeightedOutcome((int weight, Processable processable) tuple)
         {
             if (tuple.weight < 0)

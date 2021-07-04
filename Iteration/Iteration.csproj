@@ -1,11 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>SharpGrammar.NumberModule</RootNamespace>
-    </PropertyGroup>
-    
-    <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>SharpGrammar.Iteration</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

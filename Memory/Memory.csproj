@@ -1,11 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>SharpGrammar.MemoryModule</RootNamespace>
-    </PropertyGroup>
-    
-    <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>SharpGrammar.Memory</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

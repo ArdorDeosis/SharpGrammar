@@ -43,10 +43,5 @@ namespace SharpGrammar
         /// Returns a random integer between 0 (incl.) and <paramref name="max"/> (excl.). 
         /// </summary>
         int GetRandomInt(int max);
-
-        /// <summary>
-        /// Returns a random integer between <paramref name="min"/> (incl.) and <paramref name="max"/> (excl.). 
-        /// </summary>
-        int GetRandomInt(int min, int max);
     }
 }

@@ -65,15 +65,5 @@ namespace SharpGrammar
                 throw new ArgumentOutOfRangeException(nameof(max), "Max value can not be less than 0.");
             return random.Next(max);
         }
-
-        /// <inheritdoc />
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="min"/> is greater than <paramref name="max"/>.
-        /// </exception>
-        public int GetRandomInt(int min, int max)
-        {
-            if (max < min)
-                throw new ArgumentOutOfRangeException(nameof(min), "Min value can not be greater than max value");
-            return random.Next(min, max);
-        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpGrammar.MemoryModule
+namespace SharpGrammar.Memory
 {
     /// <summary>
     /// A module providing simple memory functionality.
