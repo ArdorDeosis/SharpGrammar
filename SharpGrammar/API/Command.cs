@@ -5,7 +5,7 @@ namespace SharpGrammar.API
     public static class Command
     {
         /// <summary>
-        /// Executes the provided <see cref="Action"/> when the <see cref="Processable"/> is processed.
+        /// Executes the provided <see cref="Action"/> when this <see cref="Processable"/> is processed.
         /// Produces no value.
         /// </summary>
         /// <param name="action">The action to execute.</param>

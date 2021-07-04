@@ -7,7 +7,7 @@ namespace DwarfNameGenerator
     {
         static void Main(string[] args)
         {
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
                 Console.Write(DwarfNameGrammar.DwarfName.Process() + ", ");
             }
