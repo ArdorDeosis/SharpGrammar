@@ -1,6 +1,4 @@
-using SharpGrammar.Memory.Processables;
-
-namespace SharpGrammar.Memory.API
+namespace SharpGrammar.Memory
 {
     public static class Memory
     {

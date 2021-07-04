@@ -1,6 +1,6 @@
 using System;
 
-namespace SharpGrammar.Counting.Processables
+namespace SharpGrammar.Counting
 {
     internal class IncrementNumberProcessable : Processable
     {

@@ -24,21 +24,22 @@ namespace SharpGrammar
         public T Get<T>() where T : notnull
         {
             if (!modules.TryGetValue(typeof(T), out var module))
-                throw new Exception($"No module of type {typeof(T)} bound to the current context.");
+                throw new ContextBindingException($"No module of type {typeof(T)} is bound to the current context.");
             return (T) module ??
-                   throw new Exception($"Module bound to type {typeof(T)} is not of type {typeof(T)}.");
+                   throw new ContextBindingException($"Module bound to type {typeof(T)} is not of type {typeof(T)}.");
         }
 
         /// <inheritdoc />
         public IContext BindModule<T>() where T : class
         {
             var constructor = typeof(T).GetConstructor(Type.EmptyTypes) ??
-                              throw new Exception($"Type {typeof(T)} does not provide a parameterless " +
-                                                  "constructor and thus cannot be bound automatically. Please " +
-                                                  "provide an instance to be bound to the context.");
+                              throw new ContextBindingException($"Type {typeof(T)} does not provide a " +
+                                                                "parameterless constructor and thus cannot be bound " +
+                                                                "automatically. Please provide an instance to be bound " +
+                                                                "to the context.");
             var module = constructor.Invoke(new object?[] {this}) as T ??
-                         throw new Exception($"Could not instantiate instance of type {typeof(T)} " +
-                                             "from parameterless constructor.");
+                         throw new ContextBindingException("Could not instantiate instance of type " +
+                                                           $"{typeof(T)} from parameterless constructor.");
             return BindModule(module);
         }
 
@@ -46,7 +47,7 @@ namespace SharpGrammar
         public IContext BindModule<T>(T module) where T : notnull
         {
             if (modules.ContainsKey(typeof(T)))
-                throw new Exception($"Module of type {typeof(T)} is already bound to the context.");
+                throw new ContextBindingException($"Module of type {typeof(T)} is already bound to the context.");
             modules.Add(typeof(T), module);
             return this;
         }

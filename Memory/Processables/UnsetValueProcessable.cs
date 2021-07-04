@@ -1,6 +1,6 @@
 using System;
 
-namespace SharpGrammar.Memory.Processables
+namespace SharpGrammar.Memory
 {
     internal class UnsetValueProcessable : Processable
     {
