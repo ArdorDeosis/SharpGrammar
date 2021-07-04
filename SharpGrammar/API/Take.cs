@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SharpGrammar.API
+namespace SharpGrammar
 {
-    public static class Rule
+    public static class Take
     {
         /// <summary>
         /// A <see cref="NullProcessable"/> that does and produces nothing.
@@ -26,6 +26,8 @@ namespace SharpGrammar.API
         /// <inheritdoc cref="OneOf(SharpGrammar.WeightedOutcome[])"/>
         public static Processable OneOf(IEnumerable<WeightedOutcome> values) => OneOf(values.ToArray());
 
+        // TODO: the following code should probably not be part of the base module
+        
         /// <summary>
         /// Iterates over the <paramref name="values"/> producing one at a time.
         /// </summary>

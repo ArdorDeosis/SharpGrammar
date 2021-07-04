@@ -1,5 +1,5 @@
 ﻿using System;
-using SharpGrammar.API;
+using SharpGrammar;
 
 namespace DwarfNameGenerator
 {

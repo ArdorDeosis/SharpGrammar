@@ -1,6 +1,6 @@
 using System;
 
-namespace SharpGrammar
+namespace SharpGrammar.NumberModule
 {
     internal class IncrementNumberProcessable : Processable
     {
@@ -15,10 +15,10 @@ namespace SharpGrammar
         /// <inheritdoc />
         public override string Process(IContext context)
         {
-            if (!context.Get<ICountingModule>().TryGetNumber(name, out int oldValue))
+            if (!context.Get<INumberModule>().TryGetNumber(name, out int oldValue))
                 throw new GrammarProcessingException(nameof(IncrementNumberProcessable),
                     $"Number '{name}' does not exist in the current context.");
-            context.Get<ICountingModule>().SetNumber(name, oldValue + value);
+            context.Get<INumberModule>().SetNumber(name, oldValue + value);
             return context.NullValue;
         }
     }

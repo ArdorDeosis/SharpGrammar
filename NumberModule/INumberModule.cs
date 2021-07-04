@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpGrammar
+namespace SharpGrammar.NumberModule
 {
     /// <summary>
-    /// An <see cref="IContextModule"/> providing simple counting functionality.
+    /// A module providing simple counting functionality.
     /// </summary>
-    public interface ICountingModule : IContextModule
+    public interface INumberModule
     {
         /// <summary>
         /// Saves the provided <paramref name="value"/> to context-memory with the name <paramref name="name"/>.
@@ -39,7 +39,7 @@ namespace SharpGrammar
     }
 
     /// <inheritdoc />
-    public class CountingModule : ICountingModule
+    public class NumberModule : INumberModule
     {
         private readonly Dictionary<string, int> numbers = new();
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace SharpGrammar
+namespace SharpGrammar.NumberModule
 {
     internal class SetNumberProcessable : Processable
     {
@@ -18,7 +18,7 @@ namespace SharpGrammar
         /// <inheritdoc />
         public override string Process(IContext context)
         {
-            context.Get<ICountingModule>().SetNumber(name, value, overrideExistingValue);
+            context.Get<INumberModule>().SetNumber(name, value, overrideExistingValue);
             return context.NullValue;
         }
     }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpGrammar
+namespace SharpGrammar.MemoryModule
 {
     /// <summary>
-    /// An <see cref="IContextModule"/> providing simple memory functionality.
+    /// A module providing simple memory functionality.
     /// </summary>
-    public interface IMemoryModule : IContextModule
+    public interface IMemoryModule
     {
         /// <summary>
         /// Saves the provided <paramref name="value"/> to context-memory with the name <paramref name="name"/>.

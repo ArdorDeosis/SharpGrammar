@@ -1,11 +1,11 @@
 using System;
 
-namespace SharpGrammar
+namespace SharpGrammar.MemoryModule
 {
-    internal class UnsetNumberProcessable : Processable
+    internal class UnsetValueProcessable : Processable
     {
         private readonly string name;
-        internal UnsetNumberProcessable(string name)
+        internal UnsetValueProcessable(string name)
         {
             this.name = name ?? throw new ArgumentNullException(nameof(name));
         }
@@ -13,7 +13,7 @@ namespace SharpGrammar
         /// <inheritdoc />
         public override string Process(IContext context)
         {
-            context.Get<ICountingModule>().UnsetNumber(name);
+            context.Get<IMemoryModule>().UnsetValue(name);
             return context.NullValue;
         }
     }

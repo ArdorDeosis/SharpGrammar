@@ -1,5 +1,4 @@
 ﻿using SharpGrammar;
-using SharpGrammar.API;
 
 namespace AztecPantheon
 {
@@ -7,7 +6,7 @@ namespace AztecPantheon
     {
         public static Processable Name = "NAME";
 
-        public static Processable Domain = Rule.Iterate(IteratorRandomization.EveryCycle,
+        public static Processable Domain = Take.Iterate(IteratorRandomization.EveryCycle,
             "fertility", "war", "art", "food", "farming", "hunting", "family", "health");
         
         
