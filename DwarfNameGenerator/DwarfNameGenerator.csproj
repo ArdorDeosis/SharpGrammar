@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Iteration\Iteration.csproj" />
       <ProjectReference Include="..\SharpGrammar\SharpGrammar.csproj" />
     </ItemGroup>
 

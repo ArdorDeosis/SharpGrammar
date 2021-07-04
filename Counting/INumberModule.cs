@@ -6,7 +6,7 @@ namespace SharpGrammar.Counting
     /// <summary>
     /// A module providing simple counting functionality.
     /// </summary>
-    public interface INumberModule
+    public interface INumberModule<T>
     {
         /// <summary>
         /// Saves the provided <paramref name="value"/> to context-memory with the name <paramref name="name"/>.
@@ -36,10 +36,12 @@ namespace SharpGrammar.Counting
         /// <param name="value">Contains the value of the number if found, null otherwise.</param>
         /// <returns>Whether the number was found or not.</returns>
         bool TryGetNumber(string name, out int value);
+
+        T Convert(int value);
     }
 
     /// <inheritdoc />
-    public class NumberModule : INumberModule
+    public class NumberModule<T> : INumberModule<T>
     {
         private readonly Dictionary<string, int> numbers = new();
 
@@ -82,6 +84,11 @@ namespace SharpGrammar.Counting
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
             return numbers.TryGetValue(name, out value);
+        }
+
+        public T Convert(int value)
+        {
+            throw new NotImplementedException();
         }
     }
 }

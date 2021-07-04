@@ -6,7 +6,8 @@ namespace SharpGrammar.Memory
     /// <summary>
     /// A module providing simple memory functionality.
     /// </summary>
-    public interface IMemoryModule
+    /// <typeparam name="T">Return type of the context this module is bound to.</typeparam>
+    public interface IMemoryModule<T>
     {
         /// <summary>
         /// Saves the provided <paramref name="value"/> to context-memory with the name <paramref name="name"/>.
@@ -15,7 +16,7 @@ namespace SharpGrammar.Memory
         /// <param name="value">The value of the variable.</param>
         /// <param name="override">Whether the variable should be overridden, if one with the same name already
         /// exists.</param>
-        void SetValue(string name, Processable value, bool @override = true);
+        void SetValue(string name, Processable<T> value, bool @override = true);
 
         /// <summary>
         /// Unsets the variable with the name <paramref name="name"/>.
@@ -27,7 +28,7 @@ namespace SharpGrammar.Memory
         /// Returns the variable named <paramref name="name"/>.
         /// </summary>
         /// <param name="name">The name of the variable to return.</param>
-        Processable GetValue(string name);
+        Processable<T> GetValue(string name);
 
         /// <summary>
         /// Retrieves the variable named <paramref name="name"/>, if it exists.
@@ -35,19 +36,19 @@ namespace SharpGrammar.Memory
         /// <param name="name">The name of the variable to return.</param>
         /// <param name="value">Contains the value of the variable if found, null otherwise.</param>
         /// <returns>Whether the variable was found or not.</returns>
-        bool TryGetValue(string name, out Processable? value);
+        bool TryGetValue(string name, out Processable<T>? value);
     }
 
 
     /// <inheritdoc />
-    public class MemoryModule : IMemoryModule {
+    public class MemoryModule<T> : IMemoryModule<T> {
         
-        private readonly Dictionary<string, Processable> variables = new();
+        private readonly Dictionary<string, Processable<T>> variables = new();
 
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException"><paramref name="name"/> or <paramref name="value"/> is null.
         /// </exception>
-        public void SetValue(string name, Processable value, bool @override = true)
+        public void SetValue(string name, Processable<T> value, bool @override = true)
         {
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
@@ -70,7 +71,7 @@ namespace SharpGrammar.Memory
         /// <exception cref="ArgumentNullException"><paramref name="name"/> is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">No variable named '<paramref name="name"/>' exists.
         /// </exception>
-        public Processable GetValue(string name)
+        public Processable<T> GetValue(string name)
         {
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
@@ -81,7 +82,7 @@ namespace SharpGrammar.Memory
 
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException"><paramref name="name"/> is null.</exception>
-        public bool TryGetValue(string name, out Processable? value)
+        public bool TryGetValue(string name, out Processable<T>? value)
         {
             if (name == null)
                 throw new ArgumentNullException(nameof(name));

@@ -2,13 +2,13 @@ using System;
 
 namespace SharpGrammar
 {
-    internal class RepeatProcessable : Processable
+    internal class RepeatProcessable<T> : Processable<T>
     {
-        private readonly Processable value;
+        private readonly Processable<T> value;
         private readonly int n;
         private readonly bool preprocess;
 
-        internal RepeatProcessable(Processable value, int n, bool preprocess = false)
+        internal RepeatProcessable(Processable<T> value, int n, bool preprocess = false)
         {
             this.value = value ?? throw new ArgumentNullException(nameof(value));
             if (n < 0)
@@ -18,11 +18,11 @@ namespace SharpGrammar
         }
 
         /// <inheritdoc />
-        public override string Process(IContext context)
+        public override T Process(IContext<T> context)
         {
-            var ruleArray = new Processable[n];
-            Array.Fill(ruleArray, preprocess ? new ValueProcessable(value.Process(context)) : value);
-            return new ProcessableList(ruleArray).Process(context);
+            var ruleArray = new Processable<T>[n];
+            Array.Fill(ruleArray, preprocess ? new ValueProcessable<T>(value.Process(context)) : value);
+            return new ProcessableList<T>(ruleArray).Process(context);
         }
     }
 }

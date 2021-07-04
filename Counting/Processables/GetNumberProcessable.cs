@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar.Counting
 {
-    internal class GetNumberProcessable : Processable
+    internal class GetNumberProcessable<T> : Processable<T>
     {
         private readonly string name;
         
@@ -12,6 +12,10 @@ namespace SharpGrammar.Counting
         }
 
         /// <inheritdoc />
-        public override string Process(IContext context) => context.Get<INumberModule>().GetNumber(name).ToString();
+        public override T Process(IContext<T> context)
+        {
+            var module = context.Get<INumberModule<T>>();
+            return module.Convert(module.GetNumber(name));
+        }
     }
 }
