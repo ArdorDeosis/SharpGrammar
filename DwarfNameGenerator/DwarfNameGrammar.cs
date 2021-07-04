@@ -16,8 +16,6 @@ namespace DwarfNameGenerator
             DwarfNameStartEndingOpen
         );
 
-        public static Processable<string> test = "other string" + Iterate.Over<string>("a", "b");
-
         private static readonly Processable<string> DwarfNameStartEndingClosed = Take.OneOf<string>("Alf", "Ar", "Arn",
             "As", "Bein", "Berg", "Bjar", "Björ", "Bor", "Dag", "Dan", "Dar", "Dor", "Dof", "Duf", "Dur",
             "Ed", "Eb", "Ein", "Eir", "Eng", "Es", "Ev", "Falk", "Fan", "Fang",
