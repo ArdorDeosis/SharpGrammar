@@ -15,7 +15,7 @@ namespace SharpGrammar
         /// <inheritdoc />
         public override string Process(IContext context)
         {
-            return context.TryGetNumber(name, out int value)
+            return context.Get<ICountingModule>().TryGetNumber(name, out int value)
                 ? value.ToString()
                 : defaultValue.ToString();
         }

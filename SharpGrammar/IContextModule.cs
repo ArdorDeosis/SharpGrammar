@@ -1,27 +1,17 @@
-﻿namespace SharpGrammar
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharpGrammar
 {
+    /// <summary>
+    /// Marker interface for context modules.
+    /// TODO: this might be obsolete and probably could be removed.
+    /// </summary>
     public interface IContextModule
     {
-        IContext Context { get; }
-    }
-
-    public class CountingModule : IContextModule
-    {
-        public IContext Context { get; private init; }
-
-        public CountingModule(IContext context)
-        {
-            Context = context;
-        }
     }
 
     public class MemoryModule<T> : IContextModule
     {
-        public IContext Context { get; private init; }
-
-        public MemoryModule(IContext context)
-        {
-            Context = context;
-        }
     }
 }

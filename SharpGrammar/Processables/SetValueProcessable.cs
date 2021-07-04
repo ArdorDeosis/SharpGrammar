@@ -20,7 +20,7 @@ namespace SharpGrammar
         /// <inheritdoc />
         public override string Process(IContext context)
         {
-            context.SetValue(name, preprocess ? value.Process(context) : value, overrideExistingValue);
+            context.Get<IMemoryModule>().SetValue(name, preprocess ? value.Process(context) : value, overrideExistingValue);
             return context.NullValue;
         }
     }
