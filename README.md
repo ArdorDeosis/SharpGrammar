@@ -5,16 +5,16 @@
 ## Creating a Grammar
 ### Processables
 
-A SharpGrammar grammar is created implicitly by defining at least one `Processable`. A `Processable` is a building block that can be evaluated within a given [context](#context). Evaluation of a processable is triggered by calling its `.Process()` method.
+A SharpGrammar grammar is created by defining at least one `Processable`. A `Processable` is a building block that can be evaluated within a given [context](#context). Evaluation of a processable is triggered by calling its `.Process()` method.
 
 ```C#
-var food = Rule.SelectRandom("pizza", "salad");
+var food = Take.OneOf("pizza", "salad");
 
 // prints either "pizza" or "salad"
 Console.WriteLine(food.Process());
 ```
 
-Processables can be concatenated with the `+` operator and strings are implicitly converted.
+Processables can be concatenated with the `+` operator and values like strings are implicitly converted.
 
 ```C#
 // note that dinnerSentence is not a string, but a Processable.
@@ -24,82 +24,65 @@ var dinnerSentence = "Today I'll have " + food + " for dinner.";
 // or               "Today I'll have salad for dinner."
 Console.WriteLine(dinnerSentence.Process());
 ```
-_Note that the strings _"Today I'll have "_ and _" for dinner."_ are converted to processables that always evaluate to the respective strings._
+_Note that the strings_ "Today I'll have " _and_ " for dinner." _are converted to processables that always evaluate to the respective strings._
 
 #### Instantiating Processables
 
-With the intention to make composition of processables more readable, they are created through factory-pattern methods, implicit conversion and operators in the `SharpGrammar.API` namespace (instead of directly calling constructors).
+With the intention to make composition of processables more readable, they are created through factory-pattern methods, implicit conversion and operators (instead of directly calling constructors).
 
 Instead of calling ...
 
 ```C#
 Processable a = new ValueProcessable("pizza");
-Processable b = new SelectRandomProcessable("salad", a);
+Processable b = new OneOfProcessable("salad", a);
 Processable c = new ProcessableList("I like to eat ", b);
 ```
 ... you call ...
 
 ```C#
 Processable a = "pizza";
-Processable b = Rule.SelectRandom("salad", a);
+Processable b = Take.OneOf("salad", a);
 Processable c = "I like to eat " + b;
 ```
 
-### Context
+## Using Context
 
-Every processable is processed within a context. The context is provided by the `IContext` interface. `IContext` provides random number generation as well as some memory functionality. A context does not have to be created manually, the `.Process()` method creates context for you. If you decide to manually create a context, e.g. to have control over the seed of the RNG, you can just pass it into the `.Process()` method.
+Every processable is processed within a context. The context is provided by the `IContext` interface. `IContext` provides basic random number generation and is extensible with modules. To process a `Processable` within a created context, just pass it into the `.Process(IContext context)` method.
 
 ```C#
 var context = new Context(seed: 1337);
 Console.WriteLine(food.Process(context));
 ```
 
-The context's memory functionality is also accessed via `Processable`s. These `Processable`s (and some others, too) do not produce any result, they return an empty string.
+#### Extending Context
+
+To extend the functionality of a context, you can bind modules to it. You can bind an existing instance...
 
 ```C#
-// This could produce an inconsistent sentence, since food is evaluated twice.
-var inconsistentSentence = "I like " + food + ", because " + food + " is delicious.";
-
-// This always produces a consistent sentence.
-var consistentSentence = Memory.Set("myFood", food, true) +
-    "I like " + Memory.Get("myFood") + ", because " + Memory.Get("myFood") + " is delicious.";
+var context = new Context();
+var module = new SomeModule();
+context.BindModule(module);
+```
+...or implicitly by type, if the type has a parameterless constructor.
+```C#
+var context = new Context();
+context.BindModule<SomeModule>();
+```
+The signature of the `.BindModule()` method allows for a procedural, fluid use.
+```C#
+var context = new Context()
+    .BindModule<SomeModule>()
+    .BindModule<AnotherModule>()
+    .BindModule(new YetAnotherModule(someParameter));
 ```
 
-## A Comprehensive List of built-in Processables
-
+##### Built-In Modules
 :construction: _link all entries to their own documentation pages_
 
-### SharpGrammar.API.Rule
-
-* Rule.Nothing
-* Rule.Value
-* Rule.OneOf
-* Rule.Iterate
-
-### SharpGrammar.API.Memory
-
-* Memory.Set
-* Memory.SetIfUnset
-* Memory.Unset
-* Memory.Get
-* Memory.TryGet
-* Memory.SetNumber
-* Memory.SetNumberIfUnset
-* Memory.IncrementNumber
-* Memory.DecrementNumber
-* Memory.UnsetNumber
-* Memory.GetNumber
-* Memory.TryGetNumber
-
-### SharpGrammar.API.Flow
-
-* Flow.Repeat
-* Flow.If
-
-### SharpGrammar.API.Command
-
-* Command.Do
-* Command.Transform
+|Module|Functionality|
+|:-|:-|
+|Counting|The `Counting` module provides integer memory and counting functionality.|
+|Memory|The `Memory` module provides functionality to save and recall values.|
 
 
 ## Extending SharpGrammar
