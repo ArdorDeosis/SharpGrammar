@@ -2,11 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>SharpGrammar.Iteration</RootNamespace>
+        <RootNamespace>SharpGrammar.Memory</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SharpGrammar\SharpGrammar.csproj" />
+      <ProjectReference Include="..\..\SharpGrammar\SharpGrammar.csproj" />
     </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SharpGrammar\SharpGrammar.csproj" />
+      <ProjectReference Include="..\..\SharpGrammar\SharpGrammar.csproj" />
     </ItemGroup>
 
 </Project>
