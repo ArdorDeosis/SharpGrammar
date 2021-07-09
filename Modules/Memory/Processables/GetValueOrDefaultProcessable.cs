@@ -2,20 +2,20 @@ using System;
 
 namespace SharpGrammar.Memory
 {
-    internal class GetValueOrDefaultProcessable : Processable
+    internal class GetValueOrDefaultProcessable<T> : Processable<T>
     {
         private readonly string name;
-        private readonly Processable defaultValue;
-        internal GetValueOrDefaultProcessable(string name, Processable defaultValue)
+        private readonly Processable<T> defaultValue;
+        internal GetValueOrDefaultProcessable(string name, Processable<T> defaultValue)
         {
             this.name = name ?? throw new ArgumentNullException(nameof(name));
             this.defaultValue = defaultValue  ?? throw new ArgumentNullException(nameof(defaultValue));
         }
 
         /// <inheritdoc />
-        public override string Process(IContext context)
+        public override T Process(IContext<T> context)
         {
-            return context.Get<IMemoryModule>().TryGetValue(name, out Processable? processable)
+            return context.Get<IMemoryModule<T>>().TryGetValue(name, out Processable<T>? processable)
                 ? processable!.Process(context)
                 : defaultValue.Process(context);
         }

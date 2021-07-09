@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar.Memory
 {
-    internal class GetValueProcessable : Processable
+    internal class GetValueProcessable<T> : Processable<T>
     {
         private readonly string name;
         internal GetValueProcessable(string name)
@@ -11,10 +11,10 @@ namespace SharpGrammar.Memory
         }
 
         /// <inheritdoc />
-        public override string Process(IContext context)
+        public override T Process(IContext<T> context)
         {
-            if (!context.Get<IMemoryModule>().TryGetValue(name, out Processable? processable))
-                throw new GrammarProcessingException(nameof(GetValueProcessable),
+            if (!context.Get<IMemoryModule<T>>().TryGetValue(name, out Processable<T>? processable))
+                throw new GrammarProcessingException(nameof(GetValueProcessable<T>),
                     $"Value '{name}' does not exist in the current context.");
             return processable!.Process(context);
         }

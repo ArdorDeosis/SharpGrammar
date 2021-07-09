@@ -23,14 +23,14 @@ namespace SharpGrammar.Iteration
         EveryCycle
     }
 
-    internal class IteratorProcessable : Processable
+    internal class IteratorProcessable<T> : Processable<T>
     {
-        private readonly Processable[] outcomes;
+        private readonly Processable<T>[] outcomes;
         private readonly IteratorRandomization randomization;
         private bool isInitialized = false;
         private int pointer = 0;
 
-        internal IteratorProcessable(Processable[] outcomes,
+        internal IteratorProcessable(Processable<T>[] outcomes,
             IteratorRandomization randomization = IteratorRandomization.None)
         {
             this.outcomes = outcomes;
@@ -38,7 +38,7 @@ namespace SharpGrammar.Iteration
         }
 
         /// <inheritdoc />
-        public override string Process(IContext context)
+        public override T Process(IContext<T> context)
         {
             if (!isInitialized)
                 Initialize(context);
@@ -52,7 +52,7 @@ namespace SharpGrammar.Iteration
             return outcomes[pointer++].Process(context);
         }
 
-        private void Initialize(IContext context)
+        private void Initialize(IContext<T> context)
         {
             if (randomization == IteratorRandomization.Once)
                 outcomes.Shuffle(context);

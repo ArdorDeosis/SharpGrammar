@@ -2,20 +2,21 @@ using System;
 
 namespace SharpGrammar
 {
-    internal class ValueProcessable : Processable
+    internal class ValueProcessable<T> : Processable<T>
     {
-        private readonly string value;
-        internal ValueProcessable(string value)
+        private readonly T value;
+        
+        internal ValueProcessable(T value)
         {
             this.value = value ?? throw new ArgumentNullException(nameof(value));;
         }
 
         /// <inheritdoc />
-        public override string Process(IContext context) => value;
+        public override T Process(IContext<T> context) => value;
 
         /// <summary>
-        /// Implicitly converts a <see cref="string"/> to a <see cref="ValueProcessable"/>.
+        /// Implicitly converts a <see cref="string"/> to a <see cref="ValueProcessable{T}"/>.
         /// </summary>
-        public static implicit operator ValueProcessable(string @string) => new(@string);
+        public static implicit operator ValueProcessable<T>(T value) => new(value);
     }
 }

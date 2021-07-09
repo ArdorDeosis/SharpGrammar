@@ -2,14 +2,14 @@ using System.Linq;
 
 namespace SharpGrammar
 {
-    internal class OneOfProcessable : Processable
+    internal class OneOfProcessable<T> : Processable<T>
     {
-        private readonly WeightedOutcome[] outcomes;
+        private readonly WeightedOutcome<T>[] outcomes;
         
-        internal OneOfProcessable(params WeightedOutcome[] outcomes) => this.outcomes = outcomes;
+        internal OneOfProcessable(params WeightedOutcome<T>[] outcomes) => this.outcomes = outcomes;
 
         /// <inheritdoc />
-        public override string Process(IContext context)
+        public override T Process(IContext<T> context)
         {
             var pointer = context.GetRandomInt(outcomes.Sum(outcome => outcome.weight));
             var counter = 0;
@@ -20,7 +20,7 @@ namespace SharpGrammar
                     return outcome.processable.Process(context);
             }
 
-            throw new GrammarProcessingException(nameof(OneOfProcessable),
+            throw new GrammarProcessingException(nameof(OneOfProcessable<T>),
                 "Pointer has not been reached. Are there some weights <= 0?");
         }
     }

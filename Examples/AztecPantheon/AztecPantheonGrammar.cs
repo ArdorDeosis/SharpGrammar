@@ -6,9 +6,9 @@ namespace AztecPantheon
 {
     public static class AztecPantheonGrammar
     {
-        public static Processable Name = "NAME";
+        public static Processable<string> Name = "NAME";
 
-        public static Processable Domain = Iterate.Over(IteratorRandomization.EveryCycle,
+        public static Processable<string> Domain = Iterate.Over<string>(IteratorRandomization.EveryCycle,
             "fertility", "war", "art", "food", "farming", "hunting", "family", "health");
         
         

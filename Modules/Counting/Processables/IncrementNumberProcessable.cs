@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar.Counting
 {
-    internal class IncrementNumberProcessable : Processable
+    internal class IncrementNumberProcessable<T> : Processable<T>
     {
         private readonly string name;
         private readonly int value;
@@ -13,12 +13,12 @@ namespace SharpGrammar.Counting
         }
 
         /// <inheritdoc />
-        public override string Process(IContext context)
+        public override T Process(IContext<T> context)
         {
-            if (!context.Get<INumberModule>().TryGetNumber(name, out int oldValue))
-                throw new GrammarProcessingException(nameof(IncrementNumberProcessable),
+            if (!context.Get<INumberModule<T>>().TryGetNumber(name, out var oldValue))
+                throw new GrammarProcessingException(nameof(IncrementNumberProcessable<T>),
                     $"Number '{name}' does not exist in the current context.");
-            context.Get<INumberModule>().SetNumber(name, oldValue + value);
+            context.Get<INumberModule<T>>().SetNumber(name, oldValue + value);
             return context.NullValue;
         }
     }

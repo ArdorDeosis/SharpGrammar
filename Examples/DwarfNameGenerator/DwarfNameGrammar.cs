@@ -4,18 +4,18 @@ namespace DwarfNameGenerator
 {
     public static class DwarfNameGrammar
     {
-        public static Processable DwarfName => Take.OneOf(
+        public static Processable<string> DwarfName => Take.OneOf<string>(
             (2, DwarfNameStartEndingClosed + DwarfNameEnd),
             (2, DwarfNameStart + DwarfNameEndStartingWithConsonant),
             DwarfNameStart + DwarfNameMiddle + DwarfNameEndStartingWithConsonant
         );
 
-        private static Processable DwarfNameStart => Take.OneOf(
+        private static Processable<string> DwarfNameStart => Take.OneOf<string>(
             (4, DwarfNameStartEndingClosed),
             DwarfNameStartEndingOpen
         );
 
-        private static readonly Processable DwarfNameStartEndingClosed = Take.OneOf("Alf", "Ar", "Arn",
+        private static readonly Processable<string> DwarfNameStartEndingClosed = Take.OneOf<string>("Alf", "Ar", "Arn",
             "As", "Bein", "Berg", "Bjar", "Björ", "Bor", "Dag", "Dan", "Dar", "Dor", "Dof", "Duf", "Dur",
             "Ed", "Eb", "Ein", "Eir", "Eng", "Es", "Ev", "Falk", "Fan", "Fang",
             "Far", "Fen", "Fer", "Fin", "Finn", "Fir", "Frid", "Fjar", "Fjör", "For",
@@ -31,7 +31,7 @@ namespace DwarfNameGenerator
             "Tyr", "Tryg", "Ugg", "Udd", "Ulf", "Un", "Ur", "Vag", "Vak", "Ver", "Vet", "Vid", "Vig",
             "Vik", "Vin", "Vir", "Vör", "Vöt", "Yg", "Yd", "Yn", "Yr");
 
-        private static readonly Processable DwarfNameStartEndingOpen = Take.OneOf("Bau", "Be", "Bre", "Bri", "Bru",
+        private static readonly Processable<string> DwarfNameStartEndingOpen = Take.OneOf<string>("Bau", "Be", "Bre", "Bri", "Bru",
             "Bry", "Brö", "Bu", "Bae", "Bö", "Da", "De", "Du", "Dwo", "Dwa", "E", "Eo", "Ey", "Fa", "Fa", "Fi", "Flo",
             "Fro", "Fra", "Frey", "Glo", "Glu", "Gloi", "Gra", "Gre", "Gri", "Gy", "Ha", "Ingi", "Ja", "Jo", "Ju", "Jö",
             "Kjo", "Kle", "Kly", "Klae", "Knu", "Knö", "Rey", "Theo", "Ti", "To", "Trau", "Tru", "Va", "Yr",
@@ -40,20 +40,20 @@ namespace DwarfNameGenerator
             "Mal", "Mjöl", "Mjol", "Mul", "Pal", "Sal", "Tafl", "Tofl", "Tjal", "Tjöl", "Ul", "Val", "Vil", "Völ",
             "Yl");
 
-        private static readonly Processable DwarfNameMiddle = Take.OneOf("gri", "ra", "ri", "na", "kja", "ja", "bor",
+        private static readonly Processable<string> DwarfNameMiddle = Take.OneOf<string>("gri", "ra", "ri", "na", "kja", "ja", "bor",
             "bran", "bjar",
             "grim", "mun", "var", "dal", "del", "dil", "svin");
 
-        private static Processable DwarfNameEnd => Take.OneOf(
+        private static Processable<string> DwarfNameEnd => Take.OneOf<string>(
             DwarfNameEndStartingWithConsonant,
             DwarfNameEndStartingWithVowel);
 
-        private static readonly Processable DwarfNameEndStartingWithConsonant = Take.OneOf("bert", "berk", "bergr",
+        private static readonly Processable<string> DwarfNameEndStartingWithConsonant = Take.OneOf<string>("bert", "berk", "bergr",
             "gar", "dur", "geir", "mur", "kur", "stein", "steinr", "rin", "ring", "nur", "gust", "gustr", "mir", "vil",
             "thur", "thor", "fur", "hard", "hart", "rir", "ling", "lir", "gan", "gand", "gandr", "mel", "nar", "nir",
             "dalf", "fir", "grim", "loin", "lori");
 
-        private static readonly Processable DwarfNameEndStartingWithVowel =
-            Take.OneOf("olf", "an", "ulf", "aldi", "ori");
+        private static readonly Processable<string> DwarfNameEndStartingWithVowel =
+            Take.OneOf<string>("olf", "an", "ulf", "aldi", "ori");
     }
 }

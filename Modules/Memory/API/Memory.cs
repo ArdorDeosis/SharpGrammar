@@ -10,21 +10,21 @@ namespace SharpGrammar.Memory
         /// <param name="value">Value of the variable.</param>
         /// <param name="preprocess">Whether the value should be preprocessed.</param>
         /// <param name="override">Whether an existing value should be overridden.</param>
-        public static Processable Set(string name, Processable value, bool preprocess = true, bool @override = true) =>
-            new SetValueProcessable(name, value, preprocess, @override);
+        public static Processable<T> Set<T>(string name, Processable<T> value, bool preprocess = true, bool @override = true) =>
+            new SetValueProcessable<T>(name, value, preprocess, @override);
 
         /// <summary>
         /// Unsets the variable named <paramref name="name"/>.
         /// Produces no value.
         /// </summary>
         /// <param name="name">Name of the variable to unset.</param>
-        public static Processable Unset(string name) => new UnsetValueProcessable(name);
+        public static Processable<T> Unset<T>(string name) => new UnsetValueProcessable<T>(name);
 
         /// <summary>
         /// Produces the value of the variable named <paramref name="name"/>.
         /// </summary>
         /// <param name="name">Name of the variable.</param>
-        public static Processable Get(string name) => new GetValueProcessable(name);
+        public static Processable<T> Get<T>(string name) => new GetValueProcessable<T>(name);
 
         /// <summary>
         /// Produces the value of the variable named <paramref name="name"/>
@@ -33,7 +33,7 @@ namespace SharpGrammar.Memory
         /// <param name="name">Name of the variable.</param>
         /// <param name="defaultValue"><see cref="Processable"/> to process if no variable named <paramref name="name"/> is
         /// not set.</param>
-        public static Processable TryGet(string name, Processable defaultValue) =>
-            new GetValueOrDefaultProcessable(name, defaultValue);
+        public static Processable<T> TryGet<T>(string name, Processable<T> defaultValue) =>
+            new GetValueOrDefaultProcessable<T>(name, defaultValue);
     }
 }

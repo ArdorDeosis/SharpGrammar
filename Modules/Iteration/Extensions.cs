@@ -5,7 +5,7 @@ namespace SharpGrammar.Iteration
         /// <summary>
         /// Shuffles the given array.
         /// </summary>
-        internal static void Shuffle<T>(this T[] array, IContext context)
+        internal static void Shuffle<T, TContextReturn>(this T[] array, IContext<TContextReturn> context)
         {
             var n = array.Length;
             while (n > 1)

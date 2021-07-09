@@ -6,8 +6,14 @@ namespace SharpGrammar.Counting
     /// <summary>
     /// A module providing simple counting functionality.
     /// </summary>
-    public interface INumberModule
+    public interface INumberModule<T>
     {
+        /// <summary>
+        /// Converts an integer value to the return type.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        T Convert(int value);
+        
         /// <summary>
         /// Saves the provided <paramref name="value"/> to context-memory with the name <paramref name="name"/>.
         /// </summary>
@@ -39,9 +45,18 @@ namespace SharpGrammar.Counting
     }
 
     /// <inheritdoc />
-    public class NumberModule : INumberModule
+    public class NumberModule<T> : INumberModule<T>
     {
         private readonly Dictionary<string, int> numbers = new();
+        private readonly Func<int, T> internalConvert;
+
+        public NumberModule(Func<int, T> internalConvert)
+        {
+            this.internalConvert = internalConvert;
+        }
+
+        /// <inheritdoc />
+        public T Convert(int value) => internalConvert(value);
 
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException"><paramref name="name"/> is null.</exception>
