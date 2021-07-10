@@ -5,7 +5,7 @@
 ## Creating a Grammar
 ### Processables
 
-A SharpGrammar grammar is created by defining at least one `Processable`. A `Processable` is a building block that can be evaluated within a given [context](#using_context). Evaluation of a processable is triggered by calling its `.Process()` method.
+A SharpGrammar grammar is created by defining at least one `Processable`. A `Processable` is a building block that can be evaluated within a given [context](#using-context). Evaluation of a processable is triggered by calling its `.Process()` method.
 
 ```C#
 var food = Take.OneOf("pizza", "salad");
@@ -125,7 +125,7 @@ static class StringProcessingExtensions
 
 ### Custom Modules
 
-Modules have no restrictions. They can be bound to a context as seen above ([Adding Functionality](adding_functionality)) and can be retrieved via the `.Get<TModule>()` method. These modules' functionality can be used by processables that need some level of consitency or state.
+Modules have no restrictions. They can be bound to a context as seen above ([Adding Functionality](#adding_functionality)) and can be retrieved via the `.Get<TModule>()` method. These modules' functionality can be used by processables that need some level of consitency or state.
 
 ```C#
 context.Get<MyModule>()
