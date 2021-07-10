@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar
 {
-    internal class ActionProcessable<T> : Processable<T>
+    internal record ActionProcessable<T> : Processable<T>
     {
         private readonly Action<IContext<T>> action;
 

@@ -6,7 +6,7 @@ namespace SharpGrammar
     /// within a context, provided by an instance of <see cref="IContext{T}"/>.
     /// </summary>
     /// <typeparam name="T">Return type of the processable.</typeparam>
-    public abstract class Processable<T>
+    public abstract record Processable<T>
     {
         /// <summary>
         /// Processes the <see cref="Processable{T}"/> under the given <see cref="IContext{T}"/>.

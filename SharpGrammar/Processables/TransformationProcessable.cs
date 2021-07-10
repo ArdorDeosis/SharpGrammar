@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar
 {
-    internal class TransformationProcessable<T> : Processable<T>
+    internal record TransformationProcessable<T> : Processable<T>
     {
         private readonly Processable<T> value;
         private readonly Func<T, IContext<T>, T> function;

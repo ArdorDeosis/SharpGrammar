@@ -25,7 +25,7 @@ namespace SharpGrammar.Iteration
         EveryCycle
     }
 
-    internal class IteratorProcessable<T> : Processable<T>
+    internal record IteratorProcessable<T> : Processable<T>
     {
         private readonly Processable<T>[] outcomes;
         private readonly IteratorRandomization randomization;

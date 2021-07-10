@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar
 {
-    internal class ValueProcessable<T> : Processable<T>
+    internal record ValueProcessable<T> : Processable<T>
     {
         private readonly T value;
         

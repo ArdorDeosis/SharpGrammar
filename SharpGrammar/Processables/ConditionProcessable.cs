@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar
 {
-    internal class ConditionProcessable<T> : Processable<T>
+    internal record ConditionProcessable<T> : Processable<T>
     {
         private readonly Func<IContext<T>, bool> condition;
         private readonly Processable<T> trueValue;

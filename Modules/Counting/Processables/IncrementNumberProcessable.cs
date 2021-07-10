@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar.Counting
 {
-    internal class IncrementNumberProcessable<T> : Processable<T>
+    internal record IncrementNumberProcessable<T> : Processable<T>
     {
         private readonly string name;
         private readonly int value;

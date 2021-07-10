@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace SharpGrammar
 {
-    internal class OneOfProcessable<T> : Processable<T>
+    internal record OneOfProcessable<T> : Processable<T>
     {
         private readonly WeightedOutcome<T>[] outcomes;
         

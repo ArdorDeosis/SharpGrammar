@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace SharpGrammar
 {
-    internal class ProcessableList<T> : Processable<T>
+    internal record ProcessableList<T> : Processable<T>
     {
         private readonly List<Processable<T>> items;
 

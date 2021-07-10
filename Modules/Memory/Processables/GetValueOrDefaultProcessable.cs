@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar.Memory
 {
-    internal class GetValueOrDefaultProcessable<T> : Processable<T>
+    internal record GetValueOrDefaultProcessable<T> : Processable<T>
     {
         private readonly string name;
         private readonly Processable<T> defaultValue;

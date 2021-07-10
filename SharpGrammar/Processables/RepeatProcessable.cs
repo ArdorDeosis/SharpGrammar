@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar
 {
-    internal class RepeatProcessable<T> : Processable<T>
+    internal record RepeatProcessable<T> : Processable<T>
     {
         private readonly Processable<T> value;
         private readonly int n;

@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar.Counting
 {
-    internal class GetNumberProcessable<T> : Processable<T>
+    internal record GetNumberProcessable<T> : Processable<T>
     {
         private readonly string name;
         
