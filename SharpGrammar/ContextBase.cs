@@ -9,14 +9,19 @@ namespace SharpGrammar
         private readonly Random random;
         private readonly Dictionary<Type, object> modules = new();
 
-        public ContextBase()
+        /// <inheritdoc />
+        public int Seed { get; }
+
+        protected ContextBase()
         {
-            random = new Random();
+            Seed = new Random().Next();
+            random = new Random(Seed);
         }
 
         /// <param name="seed">The seed for the random number generator.</param>
-        public ContextBase(int seed)
+        protected ContextBase(int seed)
         {
+            Seed = seed;
             random = new Random(seed);
         }
 

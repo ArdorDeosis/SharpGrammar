@@ -10,7 +10,7 @@ namespace SharpGrammar
         internal TransformationProcessable(Processable<T> value, Func<T, IContext<T>, T> function)
         {
             this.value = value ?? throw new ArgumentNullException(nameof(value));
-            this.function = function?? throw new ArgumentNullException(nameof(function));
+            this.function = function ?? throw new ArgumentNullException(nameof(function));
         }
 
         /// <inheritdoc />

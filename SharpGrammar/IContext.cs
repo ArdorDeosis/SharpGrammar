@@ -9,6 +9,11 @@ namespace SharpGrammar
     public interface IContext<T>
     {
         /// <summary>
+        /// The seed used for this contexts random number generation.
+        /// </summary>
+        int Seed { get; }
+        
+        /// <summary>
         /// Retrieves a module of type <typeparamref name="T"/>. Throws an exception if no module could be retrieved.
         /// </summary>
         /// <typeparam name="TModule">Type of the module to retrieve.</typeparam>
