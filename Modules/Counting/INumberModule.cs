@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SharpGrammar.Counting
+﻿namespace SharpGrammar.Counting
 {
     /// <summary>
     /// A module providing simple counting functionality.
     /// </summary>
-    public interface INumberModule<T>
+    public interface INumberModule<out T>
     {
         /// <summary>
         /// Converts an integer value to the return type.
@@ -15,7 +12,7 @@ namespace SharpGrammar.Counting
         T Convert(int value);
         
         /// <summary>
-        /// Saves the provided <paramref name="value"/> to context-memory with the name <paramref name="name"/>.
+        /// Saves the provided <paramref name="value"/> to context-memory with the given <paramref name="name"/>.
         /// </summary>
         /// <param name="name">The name of the number.</param>
         /// <param name="value">The value of the number.</param>
@@ -35,6 +32,13 @@ namespace SharpGrammar.Counting
         /// <param name="name">The name of the number to return.</param>
         int GetNumber(string name);
 
+        
+        /// <summary>
+        /// Retrieves and converts the number named <paramref name="name"/>.
+        /// </summary>
+        /// <param name="name">The name of the number to return and convert.</param>
+        T GetAndConvert(string name) => Convert(GetNumber(name));
+
         /// <summary>
         /// Retrieves the number named <paramref name="name"/>, if it exists.
         /// </summary>
@@ -42,61 +46,5 @@ namespace SharpGrammar.Counting
         /// <param name="value">Contains the value of the number if found, null otherwise.</param>
         /// <returns>Whether the number was found or not.</returns>
         bool TryGetNumber(string name, out int value);
-    }
-
-    /// <inheritdoc />
-    public class NumberModule<T> : INumberModule<T>
-    {
-        private readonly Dictionary<string, int> numbers = new();
-        private readonly Func<int, T> internalConvert;
-
-        public NumberModule(Func<int, T> internalConvert)
-        {
-            this.internalConvert = internalConvert;
-        }
-
-        /// <inheritdoc />
-        public T Convert(int value) => internalConvert(value);
-
-        /// <inheritdoc />
-        /// <exception cref="ArgumentNullException"><paramref name="name"/> is null.</exception>
-        public void SetNumber(string name, int value, bool @override = true)
-        {
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
-            if (!numbers.ContainsKey(name))
-            {
-                numbers.Add(name, value);
-                return;
-            }
-
-            if (@override)
-                numbers[name] = value;
-        }
-
-        /// <inheritdoc />
-        public void UnsetNumber(string name) => numbers.Remove(name);
-
-        /// <inheritdoc />
-        /// <exception cref="ArgumentNullException"><paramref name="name"/> is null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">No number named '<paramref name="name"/>' exists.
-        /// </exception>
-        public int GetNumber(string name)
-        {
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
-            if (!numbers.ContainsKey(name))
-                throw new ArgumentOutOfRangeException($"Number '{name}' does not exist in this context.");
-            return numbers[name];
-        }
-
-        /// <inheritdoc />
-        /// <exception cref="ArgumentNullException"><paramref name="name"/> is null.</exception>
-        public bool TryGetNumber(string name, out int value)
-        {
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
-            return numbers.TryGetValue(name, out value);
-        }
     }
 }

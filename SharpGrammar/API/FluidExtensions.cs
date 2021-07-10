@@ -8,7 +8,7 @@ namespace SharpGrammar
     public static class FluidExtensions
     {
         /// <summary>
-        /// Processes the provided <see cref="Processable"/> and transforms the produced result with
+        /// Processes the provided <see cref="Processable{T}"/> and transforms the produced result with
         /// <paramref name="transform"/>.
         /// </summary>
         /// <param name="value">The value to transform.</param>
@@ -17,7 +17,7 @@ namespace SharpGrammar
             new TransformationProcessable<T>(value, transform);
 
         /// <summary>
-        /// Repeats the provided <see cref="Processable"/> <paramref name="n"/> times.
+        /// Repeats the provided <see cref="Processable{T}"/> <paramref name="n"/> times.
         /// If <paramref name="preprocess"/> == true, the processable is processed once before it is repeated.
         /// </summary>
         /// <param name="processable">The processable to repeat.</param>
@@ -27,7 +27,7 @@ namespace SharpGrammar
             new RepeatProcessable<T>(processable, n, preprocess);
 
         /// <summary>
-        /// Processes the provided <see cref="Processable"/> if <paramref name="condition"/> is true.
+        /// Processes the provided <see cref="Processable{T}"/> if <paramref name="condition"/> is true.
         /// </summary>
         /// <param name="processable">The processable to be processed.</param>
         /// <param name="condition">The condition to be checked.</param>

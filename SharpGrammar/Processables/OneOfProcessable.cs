@@ -11,13 +11,13 @@ namespace SharpGrammar
         /// <inheritdoc />
         public override T Process(IContext<T> context)
         {
-            var pointer = context.GetRandomInt(outcomes.Sum(outcome => outcome.weight));
+            var pointer = context.GetRandomInt(outcomes.Sum(outcome => outcome.Weight));
             var counter = 0;
             foreach (var outcome in outcomes)
             {
-                counter += outcome.weight;
+                counter += outcome.Weight;
                 if (counter > pointer)
-                    return outcome.processable.Process(context);
+                    return outcome.Processable.Process(context);
             }
 
             throw new GrammarProcessingException(nameof(OneOfProcessable<T>),

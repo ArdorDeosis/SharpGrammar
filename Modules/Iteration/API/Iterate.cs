@@ -12,11 +12,15 @@ namespace SharpGrammar.Iteration
         /// <param name="values">The values to produce.</param>
         public static Processable<T> Over<T>(IteratorRandomization randomization, params Processable<T>[] values) =>
             new IteratorProcessable<T>(values, randomization);
+        
+        /// <inheritdoc cref="Over{T}(SharpGrammar.Iteration.IteratorRandomization,SharpGrammar.Processable{T}[])"/>
+        public static Processable<T> Over<T>(IteratorRandomization randomization, IEnumerable<Processable<T>> values) =>
+            new IteratorProcessable<T>(values.ToArray(), randomization);
 
-        /// <inheritdoc cref="Over(SharpGrammar.Iteration.IteratorRandomization,SharpGrammar.Processable[])"/>
+        /// <inheritdoc cref="Over{T}(SharpGrammar.Iteration.IteratorRandomization,SharpGrammar.Processable{T}[])"/>
         public static Processable<T> Over<T>(params Processable<T>[] values) => new IteratorProcessable<T>(values);
 
-        /// <inheritdoc cref="Over(SharpGrammar.Processable[])"/>
+        /// <inheritdoc cref="Over{T}(SharpGrammar.Processable{T}[])"/>
         public static Processable<T> Over<T>(IEnumerable<Processable<T>> values) => Over(values.ToArray());
     }
 }

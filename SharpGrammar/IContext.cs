@@ -30,12 +30,12 @@ namespace SharpGrammar
         IContext<T> BindModule<TModule>(TModule module) where TModule : notnull;
 
         /// <summary>
-        /// The null-value of this context returned by <see cref="Processable"/>s that don't produce any value.
+        /// The null-value of this context returned by <see cref="Processable{T}"/>s that don't produce any value.
         /// </summary>
         T NullValue { get; }
 
         /// <summary>
-        /// The method to concatenate two <see cref="Processable"/>s.
+        /// The method to concatenate two <see cref="Processable{T}"/>s.
         /// </summary>
         Func<T, T, T> Concatenate { get; }
 

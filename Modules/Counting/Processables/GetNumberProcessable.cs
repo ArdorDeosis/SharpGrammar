@@ -15,7 +15,7 @@ namespace SharpGrammar.Counting
         public override T Process(IContext<T> context)
         {
             var numberModule = context.Get<INumberModule<T>>();
-            return numberModule.Convert(numberModule.GetNumber(name));
+            return numberModule.GetAndConvert(name);
         }
     }
 }

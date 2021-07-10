@@ -6,12 +6,12 @@ namespace SharpGrammar
     public static class Take
     {
         /// <summary>
-        /// A <see cref="NullProcessable"/> that does and produces nothing.
+        /// A <see cref="NullProcessable{T}"/> that does and produces nothing.
         /// </summary>
         public static Processable<T> Nothing<T>() => new NullProcessable<T>();
 
         /// <summary>
-        /// A <see cref="Processable"/> that always produces <paramref name="value"/>.
+        /// A <see cref="Processable{T}"/> that always produces <paramref name="value"/>.
         /// </summary>
         /// <param name="value">The value to produce.</param>
         public static Processable<T> Value<T>(T value) => new ValueProcessable<T>(value);
@@ -23,7 +23,7 @@ namespace SharpGrammar
         /// <returns></returns>
         public static Processable<T> OneOf<T>(params WeightedOutcome<T>[] values) => new OneOfProcessable<T>(values);
 
-        /// <inheritdoc cref="OneOf(SharpGrammar.WeightedOutcome[])"/>
+        /// <inheritdoc cref="OneOf{T}(SharpGrammar.WeightedOutcome{T}[])"/>
         public static Processable<T> OneOf<T>(IEnumerable<WeightedOutcome<T>> values) => OneOf(values.ToArray());
     }
 }

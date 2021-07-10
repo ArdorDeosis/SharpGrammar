@@ -2,7 +2,9 @@
 
 namespace SharpGrammar
 {
-    // TODO: move to own space for string implementations
+    /// <summary>
+    /// A context for string-producing grammars.
+    /// </summary>
     public class StringContext : ContextBase<string>
     {
         public override string NullValue => "";
