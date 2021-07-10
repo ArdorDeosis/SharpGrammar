@@ -125,7 +125,7 @@ static class StringProcessingExtensions
 
 ### Custom Modules
 
-Modules have no restrictions. They can be bound to a context as seen above ([Adding Functionality](#adding_functionality)) and can be retrieved via the `.Get<TModule>()` method. These modules' functionality can be used by processables that need some level of consitency or state.
+Modules have no restrictions. They can be bound to a context as seen above ([Adding Functionality](#adding-functionality)) and can be retrieved via the `.Get<TModule>()` method. These modules' functionality can be used by processables that need some level of consitency or state.
 
 ```C#
 context.Get<MyModule>()
