@@ -14,6 +14,18 @@
             new SetNumberProcessable<T>(name, value, @override);
 
         /// <summary>
+        /// Sets the number named <paramref name="name"/> to a  value between (incl.) <paramref name="minValue"/> and
+        /// (incl.) <paramref name="maxValue"/>.
+        /// Produces no value.
+        /// </summary>
+        /// <param name="name">Name of the number.</param>
+        /// <param name="minValue">Minimum value of the resulting number.</param>
+        /// <param name="maxValue">Maximum value of the resulting number (incl.).</param>
+        /// <param name="override">Whether an existing number should be overridden.</param>
+        public static Processable<T> SetRandom<T>(string name, int minValue, int maxValue, bool @override = true) =>
+            new SetRandomNumberProcessable<T>(name, minValue, maxValue, @override);
+
+        /// <summary>
         /// Unsets the number named <paramref name="name"/>.
         /// Produces no value.
         /// </summary>
