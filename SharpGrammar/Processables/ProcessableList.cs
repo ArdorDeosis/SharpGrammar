@@ -10,7 +10,7 @@ namespace SharpGrammar
         internal ProcessableList(params Processable<T>[] processables) => items = processables.ToList();
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context) =>
+        public override T Process(IContext context) =>
             items
                 .Select(rule => rule.Process(context))
                 .Aggregate(context.Concatenate);

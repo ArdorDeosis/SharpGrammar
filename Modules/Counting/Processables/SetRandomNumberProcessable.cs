@@ -18,11 +18,11 @@ namespace SharpGrammar.Counting
         }
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context)
+        public override T Process(IContext context)
         {
             var n = minValue + context.GetRandomInt(maxValue - minValue + 1);
             context.Get<INumberModule<T>>().SetNumber(name, n, overrideExistingValue);
-            return context.NullValue;
+            return context.NullValue<T>();
         }
     }
 }

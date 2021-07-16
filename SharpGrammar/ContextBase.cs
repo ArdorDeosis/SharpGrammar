@@ -4,22 +4,23 @@ using System.Collections.Generic;
 namespace SharpGrammar
 {
     /// <inheritdoc />
-    public abstract class ContextBase<T> : IContext<T>
+    public class Context : IContext
     {
         private readonly Random random;
         private readonly Dictionary<Type, object> modules = new();
+        private readonly Dictionary<Type, object> typeContexts = new();
 
         /// <inheritdoc />
         public int Seed { get; }
 
-        protected ContextBase()
+        public Context()
         {
             Seed = new Random().Next();
             random = new Random(Seed);
         }
 
         /// <param name="seed">The seed for the random number generator.</param>
-        protected ContextBase(int seed)
+        public Context(int seed)
         {
             Seed = seed;
             random = new Random(seed);
@@ -35,7 +36,7 @@ namespace SharpGrammar
         }
 
         /// <inheritdoc />
-        public IContext<T> BindModule<TModule>() where TModule : class
+        public IContext BindModule<TModule>() where TModule : class
         {
             var constructor = typeof(TModule).GetConstructor(Type.EmptyTypes) ??
                               throw new ContextBindingException($"Type {typeof(TModule)} does not provide a " +
@@ -49,7 +50,7 @@ namespace SharpGrammar
         }
 
         /// <inheritdoc />
-        public IContext<T> BindModule<TModule>(TModule module) where TModule : notnull
+        public IContext BindModule<TModule>(TModule module) where TModule : notnull
         {
             if (modules.ContainsKey(typeof(TModule)))
                 throw new ContextBindingException($"Module of type {typeof(TModule)} is already bound to the context.");
@@ -58,18 +59,32 @@ namespace SharpGrammar
         }
 
         /// <inheritdoc />
-        public abstract T NullValue { get; }
-
-        /// <inheritdoc />
-        public abstract Func<T, T, T> Concatenate { get; }
-
-        /// <inheritdoc />
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is less than 0.</exception>
         public int GetRandomInt(int max)
         {
             if (max < 0)
                 throw new ArgumentOutOfRangeException(nameof(max), "Max value can not be less than 0.");
             return random.Next(max);
+        }
+
+        public IContext BindTypeHandling<T>(ITypeContext<T> typeContext)
+        {
+            if (typeContexts.ContainsKey(typeof(T)))
+                throw new ContextBindingException($"Type context for type {typeof(T)} is already bound to the context.");
+            typeContexts.Add(typeof(T), typeContext);
+            return this;
+        }
+
+        T IContext.NullValue<T>() => GetTypeContext<T>().NullValue;
+
+        T IContext.Concatenate<T>(T lhs, T rhs) => GetTypeContext<T>().Concatenate(lhs, rhs);
+
+        private ITypeContext<T> GetTypeContext<T>()
+        {
+            if (!typeContexts.TryGetValue(typeof(T), out var typeContext))
+                throw new Exception($"No type context for type {typeof(T)} is bound to the current context."); // TODO: these exceptions
+            return (ITypeContext<T>) typeContext ??
+                   throw new ContextBindingException($"Type context bound for type {typeof(T)} is not of type {typeof(ITypeContext<T>)}.");
         }
     }
 }

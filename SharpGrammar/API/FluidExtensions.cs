@@ -13,8 +13,17 @@ namespace SharpGrammar
         /// </summary>
         /// <param name="value">The value to transform.</param>
         /// <param name="transform">The transformation to execute.</param>
-        public static Processable<T> Transform<T>(this Processable<T> value, Func<T, IContext<T>, T> transform) =>
-            new TransformationProcessable<T>(value, transform);
+        public static Processable<T> Transform<T>(this Processable<T> value, Func<T, IContext, T> transform) =>
+            new TransformationProcessable<T, T>(value, transform);
+        
+        /// <summary>
+        /// Processes the provided <see cref="Processable{T}"/> and transforms the produced result with
+        /// <paramref name="transform"/>.
+        /// </summary>
+        /// <param name="value">The value to transform.</param>
+        /// <param name="transform">The transformation to execute.</param>
+        public static Processable<TTo> Transform<TFrom, TTo>(this Processable<TFrom> value, Func<TFrom, IContext, TTo> transform) =>
+            new TransformationProcessable<TFrom, TTo>(value, transform);
 
         /// <summary>
         /// Repeats the provided <see cref="Processable{T}"/> <paramref name="n"/> times.
@@ -44,7 +53,7 @@ namespace SharpGrammar
         /// </summary>
         /// <param name="processable">The processable to be processed.</param>
         /// <param name="condition">The condition to be checked.</param>
-        public static ConditionProcessableInfo<T> If<T>(this Processable<T> processable, Func<IContext<T>, bool> condition) =>
+        public static ConditionProcessableInfo<T> If<T>(this Processable<T> processable, Func<IContext, bool> condition) =>
             new(processable, condition);
     }
 }

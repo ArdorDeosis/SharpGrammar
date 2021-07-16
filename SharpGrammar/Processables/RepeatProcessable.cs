@@ -26,7 +26,7 @@ namespace SharpGrammar
         }
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context)
+        public override T Process(IContext context)
         {
             var n = min + context.GetRandomInt(max - min + 1);
             var ruleArray = new Processable<T>[n];

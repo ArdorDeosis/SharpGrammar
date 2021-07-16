@@ -11,10 +11,10 @@ namespace SharpGrammar.Counting
         }
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context)
+        public override T Process(IContext context)
         {
             context.Get<INumberModule<T>>().UnsetNumber(name);
-            return context.NullValue;
+            return context.NullValue<T>();
         }
     }
 }

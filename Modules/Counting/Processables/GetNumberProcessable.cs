@@ -12,7 +12,7 @@ namespace SharpGrammar.Counting
         }
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context)
+        public override T Process(IContext context)
         {
             var numberModule = context.Get<INumberModule<T>>();
             return numberModule.GetAndConvert(name);

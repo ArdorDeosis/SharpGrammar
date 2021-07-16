@@ -40,7 +40,7 @@ namespace SharpGrammar.Iteration
         }
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context)
+        public override T Process(IContext context)
         {
             if (!isInitialized)
                 Initialize(context);
@@ -54,7 +54,7 @@ namespace SharpGrammar.Iteration
             return outcomes[pointer++].Process(context);
         }
 
-        private void Initialize(IContext<T> context)
+        private void Initialize(IContext context)
         {
             if (randomization == IteratorRandomization.Once)
                 outcomes.Shuffle(context);

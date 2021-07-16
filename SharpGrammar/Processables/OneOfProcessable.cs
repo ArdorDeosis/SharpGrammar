@@ -9,7 +9,7 @@ namespace SharpGrammar
         internal OneOfProcessable(params WeightedOutcome<T>[] outcomes) => this.outcomes = outcomes;
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context)
+        public override T Process(IContext context)
         {
             var pointer = context.GetRandomInt(outcomes.Sum(outcome => outcome.Weight));
             var counter = 0;

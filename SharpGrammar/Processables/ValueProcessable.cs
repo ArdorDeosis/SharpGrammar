@@ -12,7 +12,7 @@ namespace SharpGrammar
         }
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context) => value;
+        public override T Process(IContext context) => value;
 
         /// <summary>
         /// Implicitly converts a <see cref="string"/> to a <see cref="ValueProcessable{T}"/>.

@@ -13,13 +13,13 @@ namespace SharpGrammar.Counting
         }
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context)
+        public override T Process(IContext context)
         {
             if (!context.Get<INumberModule<T>>().TryGetNumber(name, out var oldValue))
                 throw new GrammarProcessingException(nameof(IncrementNumberProcessable<T>),
                     $"Number '{name}' does not exist in the current context.");
             context.Get<INumberModule<T>>().SetNumber(name, oldValue + value);
-            return context.NullValue;
+            return context.NullValue<T>();
         }
     }
 }
