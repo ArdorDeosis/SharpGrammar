@@ -9,15 +9,9 @@ namespace DwarfNameGenerator
         {
             var context = new Context()
                 .BindTypeHandling(new StringHandler());
-            for (var i = 0; i < 200; i++)
-                Console.Write(DwarfNameGrammar.DwarfName.Process(context) + ", ");
+            
+            for (var i = 0; i < 144; i++)
+                Console.WriteLine(DwarfNameGrammar.Name.Process(context));
         }
-    }
-
-    public class StringHandler : ITypeHandler<string>
-    {
-        public string NullValue => "";
-
-        public string Concatenate(string lhs, string rhs) => lhs + rhs;
     }
 }
