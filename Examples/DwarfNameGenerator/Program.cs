@@ -7,7 +7,8 @@ namespace DwarfNameGenerator
     {
         private static void Main()
         {
-            var context = new Context().BindTypeHandling(new StringHandler());
+            var context = new Context()
+                .BindTypeHandling(new StringHandler());
             for (var i = 0; i < 200; i++)
                 Console.Write(DwarfNameGrammar.DwarfName.Process(context) + ", ");
         }
@@ -16,6 +17,7 @@ namespace DwarfNameGenerator
     public class StringHandler : ITypeHandler<string>
     {
         public string NullValue => "";
-        public Func<string, string, string> Concatenate => (lhs, rhs) => lhs + rhs;
+
+        public string Concatenate(string lhs, string rhs) => lhs + rhs;
     }
 }

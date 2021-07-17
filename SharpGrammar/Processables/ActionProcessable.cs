@@ -13,7 +13,7 @@ namespace SharpGrammar
         public override T Process(IContext context)
         {
             action.Invoke(context);
-            return context.NullValue<T>();
+            return context.GetNullValue<T>();
         }
     }
 }

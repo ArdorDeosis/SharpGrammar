@@ -4,18 +4,9 @@ using System.Collections.Generic;
 namespace SharpGrammar.Counting
 {
     /// <inheritdoc />
-    public class NumberModule<T> : INumberModule<T>
+    public class NumberModule : INumberModule
     {
         private readonly Dictionary<string, int> numbers = new();
-        private readonly Func<int, T> internalConvert;
-
-        public NumberModule(Func<int, T> conversionFunction)
-        {
-            internalConvert = conversionFunction;
-        }
-
-        /// <inheritdoc />
-        public T Convert(int value) => internalConvert(value);
 
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException"><paramref name="name"/> is null.</exception>

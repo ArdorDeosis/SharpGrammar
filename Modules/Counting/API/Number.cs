@@ -54,14 +54,14 @@
         /// Produces the number named <paramref name="name"/>.
         /// </summary>
         /// <param name="name">Name of the number.</param>
-        public static Processable<T> Get<T>(string name) => new GetNumberProcessable<T>(name);
+        public static Processable<int> Get(string name) => new GetNumberProcessable(name);
         
         /// <summary>
         /// Produces the number named <paramref name="name"/>.
         /// </summary>
         /// <param name="name">Name of the number.</param>
         /// <param name="defaultValue">Number to return if no number named <paramref name="name"/> exists.</param>
-        public static Processable<T> TryGet<T>(string name, int defaultValue) =>
-            new GetNumberOrDefaultProcessable<T>(name, defaultValue);
+        public static Processable<int> TryGet(string name, int defaultValue) =>
+            new GetNumberOrDefaultProcessable(name, defaultValue);
     }
 }

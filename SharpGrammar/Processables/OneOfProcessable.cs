@@ -11,17 +11,17 @@ namespace SharpGrammar
         /// <inheritdoc />
         public override T Process(IContext context)
         {
-            var pointer = context.GetRandomInt(outcomes.Sum(outcome => outcome.Weight));
-            var counter = 0;
+            var randomWeightPointer = context.GetRandomInt(outcomes.Sum(outcome => outcome.Weight));
+            var weightCounter = 0;
             foreach (var outcome in outcomes)
             {
-                counter += outcome.Weight;
-                if (counter > pointer)
+                weightCounter += outcome.Weight;
+                if (weightCounter > randomWeightPointer)
                     return outcome.Processable.Process(context);
             }
 
-            throw new GrammarProcessingException(nameof(OneOfProcessable<T>),
-                "Pointer has not been reached. Are there some weights <= 0?");
+            throw new GrammarProcessingException(nameof(OneOfProcessable<T>), 
+                "Reaching this code is mathematically impossible, yet an Exception is thrown, to satisfy the compiler");
         }
     }
 }

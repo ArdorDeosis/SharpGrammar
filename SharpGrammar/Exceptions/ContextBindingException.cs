@@ -3,7 +3,7 @@ using System;
 namespace SharpGrammar
 {
     /// <summary>
-    /// An <see cref="Exception"/> thrown for errors regarding bindings on <see cref="IContext{T}"/>s.
+    /// Base class for <see cref="Exception"/>s regarding bindings on <see cref="IContext"/>s.
     /// </summary>
     public class ContextBindingException : Exception
     {

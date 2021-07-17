@@ -41,7 +41,6 @@ namespace SharpGrammar
         /// If <paramref name="preprocess"/> == true, the processable is processed once before it is repeated.
         /// </summary>
         /// <param name="processable">The processable to repeat.</param>
-        /// <param name="n">How often the processable is repeated.</param>
         /// <param name="min">Minimum repeats.</param>
         /// <param name="max">Maximum repeats</param>
         /// <param name="preprocess">Whether the processable is processed before it is repeated.</param>

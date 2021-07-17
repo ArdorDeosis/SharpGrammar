@@ -14,8 +14,8 @@ namespace SharpGrammar
 
         private WeightedOutcome(Processable<T> processable, int weight)
         {
-            this.Processable = processable;
-            this.Weight = weight;
+            Processable = processable;
+            Weight = weight;
         }
 
         public static implicit operator WeightedOutcome<T>(T value) =>

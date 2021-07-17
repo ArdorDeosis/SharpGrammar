@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace SharpGrammar
 {
+    /// <summary>
+    /// Provides creation methods for <see cref="Processable{T}"/>s representing one or multiple values. 
+    /// </summary>
     public static class Take
     {
         /// <summary>
@@ -20,10 +23,17 @@ namespace SharpGrammar
         /// Produces one randomly chosen value of <paramref name="values"/>. 
         /// </summary>
         /// <param name="values">The values to choose from.</param>
-        /// <returns></returns>
         public static Processable<T> OneOf<T>(params WeightedOutcome<T>[] values) => new OneOfProcessable<T>(values);
 
         /// <inheritdoc cref="OneOf{T}(SharpGrammar.WeightedOutcome{T}[])"/>
         public static Processable<T> OneOf<T>(IEnumerable<WeightedOutcome<T>> values) => OneOf(values.ToArray());
+
+        /// <inheritdoc cref="OneOf{T}(SharpGrammar.WeightedOutcome{T}[])"/>        
+        public static Processable<T> OneOf<T>(params T[] values) =>
+            OneOf(values.Select(value => (WeightedOutcome<T>)value));
+        
+        /// <inheritdoc cref="OneOf{T}(SharpGrammar.WeightedOutcome{T}[])"/>
+        public static Processable<T> OneOf<T>(IEnumerable<T> values) =>
+            OneOf(values.Select(value => (WeightedOutcome<T>)value)); 
     }
 }

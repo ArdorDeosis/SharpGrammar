@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace SharpGrammar
+﻿namespace SharpGrammar
 {
     /// <summary>
-    /// A generic interface providing type specific operations and values.
-    /// Can be 
+    /// A generic interface providing type specific operations and values. Can be bound to an <see cref="IContext"/>
+    /// to enable it to handle <see cref="Processable{T}"/>s of type <typeparamref name="T"/>.
     /// </summary>
     /// <typeparam name="T">The type to handle.</typeparam>
     public interface ITypeHandler<T>
@@ -15,8 +13,8 @@ namespace SharpGrammar
         T NullValue { get; }
 
         /// <summary>
-        /// The method to concatenate two <see cref="Processable{T}"/>s.
+        /// The method to concatenate two instances of <typeparamref name="T"/>.
         /// </summary>
-        Func<T, T, T> Concatenate { get; }
+        T Concatenate(T lhs, T rhs);
     }
 }

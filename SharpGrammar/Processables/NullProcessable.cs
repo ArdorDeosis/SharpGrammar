@@ -6,6 +6,6 @@ namespace SharpGrammar
     public record NullProcessable<T> : Processable<T>
     {
         /// <inheritdoc />
-        public override T Process(IContext context) => context.NullValue<T>();
+        public override T Process(IContext context) => context.GetNullValue<T>();
     }
 }

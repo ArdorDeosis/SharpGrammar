@@ -1,16 +1,12 @@
-﻿namespace SharpGrammar.Counting
+﻿using System;
+
+namespace SharpGrammar.Counting
 {
     /// <summary>
     /// A module providing simple counting functionality.
     /// </summary>
-    public interface INumberModule<out T>
+    public interface INumberModule
     {
-        /// <summary>
-        /// Converts an integer value to the return type.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        T Convert(int value);
-        
         /// <summary>
         /// Saves the provided <paramref name="value"/> to context-memory with the given <paramref name="name"/>.
         /// </summary>
@@ -32,12 +28,12 @@
         /// <param name="name">The name of the number to return.</param>
         int GetNumber(string name);
 
-        
         /// <summary>
         /// Retrieves and converts the number named <paramref name="name"/>.
         /// </summary>
         /// <param name="name">The name of the number to return and convert.</param>
-        T GetAndConvert(string name) => Convert(GetNumber(name));
+        /// <param name="conversion">Conversion function with which to convert the retrieved value.</param>
+        T GetAndConvert<T>(string name, Func<int, T> conversion) => conversion(GetNumber(name));
 
         /// <summary>
         /// Retrieves the number named <paramref name="name"/>, if it exists.

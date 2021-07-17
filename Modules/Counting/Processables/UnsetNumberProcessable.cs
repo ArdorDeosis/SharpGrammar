@@ -13,8 +13,8 @@ namespace SharpGrammar.Counting
         /// <inheritdoc />
         public override T Process(IContext context)
         {
-            context.Get<INumberModule<T>>().UnsetNumber(name);
-            return context.NullValue<T>();
+            context.Get<INumberModule>().UnsetNumber(name);
+            return context.GetNullValue<T>();
         }
     }
 }

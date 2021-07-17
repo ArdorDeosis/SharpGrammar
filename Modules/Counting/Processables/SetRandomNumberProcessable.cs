@@ -21,8 +21,8 @@ namespace SharpGrammar.Counting
         public override T Process(IContext context)
         {
             var n = minValue + context.GetRandomInt(maxValue - minValue + 1);
-            context.Get<INumberModule<T>>().SetNumber(name, n, overrideExistingValue);
-            return context.NullValue<T>();
+            context.Get<INumberModule>().SetNumber(name, n, overrideExistingValue);
+            return context.GetNullValue<T>();
         }
     }
 }
