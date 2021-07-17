@@ -2,18 +2,18 @@ using System;
 
 namespace SharpGrammar
 {
-    internal class TransformationProcessable<T> : Processable<T>
+    internal record TransformationProcessable<TFrom, TTo> : Processable<TTo>
     {
-        private readonly Processable<T> value;
-        private readonly Func<T, IContext<T>, T> function;
+        private readonly Processable<TFrom> value;
+        private readonly Func<TFrom, IContext, TTo> function;
 
-        internal TransformationProcessable(Processable<T> value, Func<T, IContext<T>, T> function)
+        internal TransformationProcessable(Processable<TFrom> value, Func<TFrom, IContext, TTo> function)
         {
             this.value = value ?? throw new ArgumentNullException(nameof(value));
-            this.function = function?? throw new ArgumentNullException(nameof(function));
+            this.function = function ?? throw new ArgumentNullException(nameof(function));
         }
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context) => function(value.Process(context), context);
+        public override TTo Process(IContext context) => function(value.Process(context), context);
     }
 }

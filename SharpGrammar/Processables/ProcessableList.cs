@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace SharpGrammar
 {
-    internal class ProcessableList<T> : Processable<T>
+    internal record ProcessableList<T> : Processable<T>
     {
         private readonly List<Processable<T>> items;
 
         internal ProcessableList(params Processable<T>[] processables) => items = processables.ToList();
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context) =>
+        public override T Process(IContext context) =>
             items
                 .Select(rule => rule.Process(context))
                 .Aggregate(context.Concatenate);

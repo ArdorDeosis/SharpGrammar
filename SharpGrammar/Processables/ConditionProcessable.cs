@@ -2,13 +2,13 @@ using System;
 
 namespace SharpGrammar
 {
-    internal class ConditionProcessable<T> : Processable<T>
+    internal record ConditionProcessable<T> : Processable<T>
     {
-        private readonly Func<IContext<T>, bool> condition;
+        private readonly Func<IContext, bool> condition;
         private readonly Processable<T> trueValue;
         private readonly Processable<T> falseValue;
 
-        internal ConditionProcessable(Func<IContext<T>, bool> condition, Processable<T> trueValue, Processable<T> falseValue)
+        internal ConditionProcessable(Func<IContext, bool> condition, Processable<T> trueValue, Processable<T> falseValue)
         {
             this.condition = condition ?? throw new ArgumentNullException(nameof(condition));
             this.trueValue = trueValue  ?? throw new ArgumentNullException(nameof(trueValue));
@@ -16,7 +16,7 @@ namespace SharpGrammar
         }
 
         /// <inheritdoc />
-        public override T Process(IContext<T> context) =>
+        public override T Process(IContext context) =>
             condition(context)
                 ? trueValue.Process(context)
                 : falseValue.Process(context);

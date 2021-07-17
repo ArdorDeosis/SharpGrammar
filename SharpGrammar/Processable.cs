@@ -2,17 +2,17 @@ namespace SharpGrammar
 {
     /// <summary>
     /// Base building block of a <see cref="SharpGrammar"/> grammar. A <see cref="Processable{T}"/> contains all
-    /// information needed for itself to be processed with <see cref="Process(IContext{T})"/>. It is always processed
-    /// within a context, provided by an instance of <see cref="IContext{T}"/>.
+    /// information needed for itself to be processed with <see cref="Process"/>. It is always processed
+    /// within a context, provided by an instance of <see cref="IContext"/>.
     /// </summary>
-    /// <typeparam name="T">Return type of this processable.</typeparam>
-    public abstract class Processable<T>
+    /// <typeparam name="T">Return type of the processable.</typeparam>
+    public abstract record Processable<T>
     {
         /// <summary>
-        /// Processes the <see cref="Processable{T}"/> under the given <see cref="IContext{T}"/>.
+        /// Processes the <see cref="Processable{T}"/> under the given <see cref="IContext"/>.
         /// </summary>
         /// <param name="context">The context in which the processable is processed.</param>
-        public abstract T Process(IContext<T> context);
+        public abstract T Process(IContext context);
 
         /// <summary>
         /// Implicitly converts a string to a <see cref="Processable{T}"/>.

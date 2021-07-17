@@ -6,10 +6,10 @@ namespace SharpGrammar
     public class ConditionProcessableInfo<T>
     {
         private readonly Processable<T> processable;
-        private readonly Func<IContext<T>, bool> condition;
+        private readonly Func<IContext, bool> condition;
         private Processable<T> elseCase = Take.Nothing<T>();
 
-        public ConditionProcessableInfo(Processable<T> processable, Func<IContext<T>, bool> condition)
+        public ConditionProcessableInfo(Processable<T> processable, Func<IContext, bool> condition)
         {
             this.processable = processable;
             this.condition = condition;

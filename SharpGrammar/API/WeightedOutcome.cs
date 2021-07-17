@@ -9,13 +9,13 @@ namespace SharpGrammar
     /// </summary>
     public readonly struct WeightedOutcome<T>
     {
-        internal readonly int weight;
-        internal readonly Processable<T> processable;
+        internal readonly int Weight;
+        internal readonly Processable<T> Processable;
 
         private WeightedOutcome(Processable<T> processable, int weight)
         {
-            this.processable = processable;
-            this.weight = weight;
+            this.Processable = processable;
+            this.Weight = weight;
         }
 
         public static implicit operator WeightedOutcome<T>(T value) =>
