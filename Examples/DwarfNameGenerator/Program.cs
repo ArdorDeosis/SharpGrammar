@@ -7,13 +7,13 @@ namespace DwarfNameGenerator
     {
         private static void Main()
         {
-            var context = new Context().BindTypeHandling(new StringContext());
+            var context = new Context().BindTypeHandling(new StringHandler());
             for (var i = 0; i < 200; i++)
                 Console.Write(DwarfNameGrammar.DwarfName.Process(context) + ", ");
         }
     }
 
-    public class StringContext : ITypeContext<string>
+    public class StringHandler : ITypeHandler<string>
     {
         public string NullValue => "";
         public Func<string, string, string> Concatenate => (lhs, rhs) => lhs + rhs;

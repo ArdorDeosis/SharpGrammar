@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SharpGrammar
+﻿namespace SharpGrammar
 {
     /// <summary>
     /// A context for the grammar to be evaluated in.
@@ -39,23 +37,10 @@ namespace SharpGrammar
         /// </summary>
         int GetRandomInt(int max);
 
-        IContext BindTypeHandling<T>(ITypeContext<T> typeContext);
+        IContext BindTypeHandling<T>(ITypeHandler<T> typeHandler);
 
         T NullValue<T>();
 
         T Concatenate<T>(T lhs, T rhs);
-    }
-
-    public interface ITypeContext<T>
-    {
-        /// <summary>
-        /// The null-value of this context returned by <see cref="Processable{T}"/>s that don't produce any value.
-        /// </summary>
-        T NullValue { get; }
-
-        /// <summary>
-        /// The method to concatenate two <see cref="Processable{T}"/>s.
-        /// </summary>
-        Func<T, T, T> Concatenate { get; }
     }
 }

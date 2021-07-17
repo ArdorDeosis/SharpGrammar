@@ -67,11 +67,11 @@ namespace SharpGrammar
             return random.Next(max);
         }
 
-        public IContext BindTypeHandling<T>(ITypeContext<T> typeContext)
+        public IContext BindTypeHandling<T>(ITypeHandler<T> typeHandler)
         {
             if (typeContexts.ContainsKey(typeof(T)))
                 throw new ContextBindingException($"Type context for type {typeof(T)} is already bound to the context.");
-            typeContexts.Add(typeof(T), typeContext);
+            typeContexts.Add(typeof(T), typeHandler);
             return this;
         }
 
@@ -79,12 +79,12 @@ namespace SharpGrammar
 
         T IContext.Concatenate<T>(T lhs, T rhs) => GetTypeContext<T>().Concatenate(lhs, rhs);
 
-        private ITypeContext<T> GetTypeContext<T>()
+        private ITypeHandler<T> GetTypeContext<T>()
         {
             if (!typeContexts.TryGetValue(typeof(T), out var typeContext))
                 throw new Exception($"No type context for type {typeof(T)} is bound to the current context."); // TODO: these exceptions
-            return (ITypeContext<T>) typeContext ??
-                   throw new ContextBindingException($"Type context bound for type {typeof(T)} is not of type {typeof(ITypeContext<T>)}.");
+            return (ITypeHandler<T>) typeContext ??
+                   throw new ContextBindingException($"Type context bound for type {typeof(T)} is not of type {typeof(ITypeHandler<T>)}.");
         }
     }
 }
