@@ -48,6 +48,28 @@ namespace SharpGrammar
             new RepeatProcessable<T>(processable, min, max, preprocess);
 
         /// <summary>
+        /// Repeats the provided value <paramref name="n"/> times.
+        /// If <paramref name="preprocess"/> == true, the processable is processed once before it is repeated.
+        /// </summary>
+        /// <param name="value">The processable to repeat.</param>
+        /// <param name="n">How often the processable is repeated.</param>
+        /// <param name="preprocess">Whether the processable is processed before it is repeated.</param>
+        public static Processable<T> Repeat<T>(this T value, int n, bool preprocess = false) =>
+            new RepeatProcessable<T>(new ValueProcessable<T>(value), n, n, preprocess);
+
+        /// <summary>
+        /// Repeats the provided value between <paramref name="min"/> and (incl.)
+        /// <paramref name="max"/> times.
+        /// If <paramref name="preprocess"/> == true, the processable is processed once before it is repeated.
+        /// </summary>
+        /// <param name="value">The processable to repeat.</param>
+        /// <param name="min">Minimum repeats.</param>
+        /// <param name="max">Maximum repeats</param>
+        /// <param name="preprocess">Whether the processable is processed before it is repeated.</param>
+        public static Processable<T> Repeat<T>(this T value, int min, int max, bool preprocess = false) =>
+            new RepeatProcessable<T>(new ValueProcessable<T>(value), min, max, preprocess);
+
+        /// <summary>
         /// Processes the provided <see cref="Processable{T}"/> if <paramref name="condition"/> is true.
         /// </summary>
         /// <param name="processable">The processable to be processed.</param>
