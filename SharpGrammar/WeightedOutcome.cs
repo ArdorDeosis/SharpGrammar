@@ -12,9 +12,11 @@ namespace SharpGrammar
         internal readonly int Weight;
         internal readonly Processable<T> Processable;
 
-        private WeightedOutcome(Processable<T> processable, int weight)
+        internal WeightedOutcome(Processable<T> processable, int weight)
         {
-            Processable = processable;
+            Processable = processable ?? throw new ArgumentNullException(nameof(processable));
+            if (weight < 0)
+                throw new ArgumentException("Negative weights are not supported.", nameof(weight));
             Weight = weight;
         }
 
@@ -24,13 +26,8 @@ namespace SharpGrammar
         public static implicit operator WeightedOutcome<T>(Processable<T> processable) =>
             new(processable, 1);
         
-        /// <exception cref="ArgumentException">If the provided <paramref name="tuple.weight"/> is negative.</exception>
         [SuppressMessage("ReSharper", "CA2208")]
-        public static implicit operator WeightedOutcome<T>((int weight, Processable<T> processable) tuple)
-        {
-            if (tuple.weight < 0)
-                throw new ArgumentException("Negative weights are not supported.", nameof(tuple.weight));
-            return new WeightedOutcome<T>(tuple.processable, tuple.weight);
-        }
+        public static implicit operator WeightedOutcome<T>((int weight, Processable<T> processable) tuple) =>
+            new(tuple.processable, tuple.weight);
     }
 }

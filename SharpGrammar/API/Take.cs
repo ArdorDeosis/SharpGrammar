@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -34,6 +35,9 @@ namespace SharpGrammar
         
         /// <inheritdoc cref="OneOf{T}(SharpGrammar.WeightedOutcome{T}[])"/>
         public static Processable<T> OneOf<T>(IEnumerable<T> values) =>
-            OneOf(values.Select(value => (WeightedOutcome<T>)value)); 
+            OneOf(values.Select(value => (WeightedOutcome<T>)value));
+
+        /// <inheritdoc cref="OneOf{T}(SharpGrammar.WeightedOutcome{T}[])"/>
+        public static Processable<T> OneOf<T>() where T : struct, Enum => OneOf(Enum.GetValues<T>());
     }
 }

@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace SharpGrammar
 {
     /// <summary>
@@ -6,6 +8,9 @@ namespace SharpGrammar
     public class AlreadyBoundException : ContextBindingException
     {
         /// <inheritdoc />
-        public AlreadyBoundException(string message) : base(message) { }
+        /// <param name="info">Information about the binding that is already bound.</param>
+        [SuppressMessage("ReSharper", "InvalidXmlDocComment")]
+        public AlreadyBoundException(string message, BindingInformation info) :
+            base($"{message} An instance of {info.BoundInstance.GetType().Name} was bound:\n{info.StackTrace}") { }
     }
 }

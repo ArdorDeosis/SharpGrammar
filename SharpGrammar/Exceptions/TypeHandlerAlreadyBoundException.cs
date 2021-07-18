@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SharpGrammar
 {
@@ -9,8 +10,10 @@ namespace SharpGrammar
     public class TypeHandlerAlreadyBoundException : AlreadyBoundException
     {
         /// <param name="type">Type for which a <see cref="ITypeHandler{T}"/> already has been bound.</param>
-        public TypeHandlerAlreadyBoundException(Type type) :
-            base($"{typeof(ITypeHandler<>)} for type {type.Name} has already been bound to this context.")
+        /// <param name="info">Information about the binding that is already bound.</param>
+        [SuppressMessage("ReSharper", "SuggestBaseTypeForParameter")]
+        public TypeHandlerAlreadyBoundException(Type type, BindingInformation info) :
+            base($"{typeof(ITypeHandler<>)} for type {type.Name} has already been bound to this context.", info)
         {
         }
     }

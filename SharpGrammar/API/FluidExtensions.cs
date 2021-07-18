@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace SharpGrammar
 {
@@ -76,5 +77,14 @@ namespace SharpGrammar
         /// <param name="condition">The condition to be checked.</param>
         public static ConditionProcessableInfo<T> If<T>(this Processable<T> processable, Func<IContext, bool> condition) =>
             new(processable, condition);
+
+        /// <summary>
+        /// Assigns a weight to the processable to be used in <see cref="Take.OneOf{T}(WeightedOutcome{T}[])"/> or
+        /// <see cref="Take.OneOf{T}(IEnumerable{WeightedOutcome{T}})"/>.
+        /// </summary>
+        /// <param name="processable">The processable the weight is assigned to.</param>
+        /// <param name="weight">The weight to be assigned to this processable. Must be >= 0.</param>
+        public static WeightedOutcome<T> WithWeight<T>(this Processable<T> processable, int weight) =>
+            new(processable, weight);
     }
 }

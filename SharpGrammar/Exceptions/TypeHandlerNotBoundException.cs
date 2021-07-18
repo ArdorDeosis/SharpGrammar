@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SharpGrammar
 {
@@ -9,6 +10,7 @@ namespace SharpGrammar
     public class TypeHandlerNotBoundException : NotBoundException
     {
         /// <param name="type">Type for which no <see cref="ITypeHandler{T}"/> has been bound.</param>
+        [SuppressMessage("ReSharper", "SuggestBaseTypeForParameter")]
         public TypeHandlerNotBoundException(Type type) :
             base($"No {typeof(ITypeHandler<>)} for type {type.Name} has been bound to this context.")
         {

@@ -42,7 +42,7 @@
         /// </summary>
         /// <param name="typeHandler">The type handler to be bound.</param>
         /// <typeparam name="T">The type for which the type handler offers handling.</typeparam>
-        IContext BindTypeHandling<T>(ITypeHandler<T> typeHandler);
+        IContext BindTypeHandler<T>(ITypeHandler<T> typeHandler);
 
         /// <summary>
         /// Returns the <see cref="ITypeHandler{T}.NullValue"/> of the <see cref="ITypeHandler{T}"/> bound to type

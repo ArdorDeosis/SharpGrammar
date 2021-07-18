@@ -7,8 +7,8 @@ namespace SharpGrammar
     public class Context : IContext
     {
         private readonly Random random;
-        private readonly Dictionary<Type, object> modules = new();
-        private readonly Dictionary<Type, object> typeContexts = new();
+        private readonly Dictionary<Type, BindingInformation> moduleBindings = new();
+        private readonly Dictionary<Type, BindingInformation> typeHandlerBindings = new();
 
         /// <inheritdoc />
         public int Seed { get; }
@@ -31,9 +31,9 @@ namespace SharpGrammar
         /// context.</exception>
         public T Get<T>() where T : notnull
         {
-            if (!modules.TryGetValue(typeof(T), out var module))
+            if (!moduleBindings.TryGetValue(typeof(T), out var binding))
                 throw new ModuleNotBoundException(typeof(T));
-            return (T) module;
+            return (T) binding.BoundInstance;
         }
 
         /// <inheritdoc />
@@ -55,9 +55,9 @@ namespace SharpGrammar
         /// bound to this context.</exception>
         public IContext BindModule<T>(T module) where T : notnull
         {
-            if (modules.ContainsKey(typeof(T)))
-                throw new ModuleAlreadyBoundException(typeof(T));
-            modules.Add(typeof(T), module);
+            if (moduleBindings.ContainsKey(typeof(T)))
+                throw new ModuleAlreadyBoundException(typeof(T), default);
+            moduleBindings.Add(typeof(T), new BindingInformation(module, typeof(T), Environment.StackTrace));
             return this;
         }
 
@@ -73,11 +73,11 @@ namespace SharpGrammar
         /// <inheritdoc />
         /// <exception cref="TypeHandlerAlreadyBoundException">When a <see cref="ITypeHandler{T}"/> for type
         /// <typeparamref name="T"/> is already bound to this context.</exception>
-        public IContext BindTypeHandling<T>(ITypeHandler<T> typeHandler)
+        public IContext BindTypeHandler<T>(ITypeHandler<T> typeHandler)
         {
-            if (typeContexts.ContainsKey(typeof(T)))
-                throw new TypeHandlerAlreadyBoundException(typeof(T));
-            typeContexts.Add(typeof(T), typeHandler);
+            if (typeHandlerBindings.ContainsKey(typeof(T)))
+                throw new TypeHandlerAlreadyBoundException(typeof(T), default);
+            typeHandlerBindings.Add(typeof(T), new BindingInformation(typeHandler, typeof(T), Environment.StackTrace));
             return this;
         }
 
@@ -89,9 +89,9 @@ namespace SharpGrammar
 
         private ITypeHandler<T> GetTypeHandler<T>()
         {
-            if (!typeContexts.TryGetValue(typeof(T), out var typeContext))
+            if (!typeHandlerBindings.TryGetValue(typeof(T), out var binding))
                 throw new TypeHandlerNotBoundException(typeof(T));
-            return (ITypeHandler<T>) typeContext;
+            return (ITypeHandler<T>) binding.BoundInstance;
         }
     }
 }

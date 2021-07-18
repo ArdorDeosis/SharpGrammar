@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SharpGrammar
 {
@@ -8,8 +9,10 @@ namespace SharpGrammar
     public class ModuleAlreadyBoundException : AlreadyBoundException
     {
         /// <param name="type">Type of the already bound module.</param>
-        public ModuleAlreadyBoundException(Type type) :
-            base($"A module of type {type.Name} has already been bound to this context.")
+        /// <param name="info">Information about the binding that is already bound.</param>
+        [SuppressMessage("ReSharper", "SuggestBaseTypeForParameter")]
+        public ModuleAlreadyBoundException(Type type, BindingInformation info) :
+            base($"A module of type {type.Name} has already been bound to this context.", info)
         {
         }
     }
