@@ -13,7 +13,7 @@ namespace SharpGrammar.Memory
         /// <inheritdoc />
         public override T Process(IContext context)
         {
-            context.Get<IMemoryModule<T>>().UnsetValue(name);
+            context.Get<IMemoryModule>().UnsetValue<T>(name);
             return context.GetNullValue<T>();
         }
     }

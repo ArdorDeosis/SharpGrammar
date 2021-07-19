@@ -15,7 +15,7 @@ namespace SharpGrammar.Memory
         /// <inheritdoc />
         public override T Process(IContext context)
         {
-            return context.Get<IMemoryModule<T>>().TryGetValue(name, out Processable<T>? processable)
+            return context.Get<IMemoryModule>().TryGetValue(name, out Processable<T>? processable)
                 ? processable!.Process(context)
                 : defaultValue.Process(context);
         }
