@@ -6,6 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Modules\Counting\Counting.csproj" />
+      <ProjectReference Include="..\..\Modules\Iteration\Iteration.csproj" />
+      <ProjectReference Include="..\..\Modules\Memory\Memory.csproj" />
       <ProjectReference Include="..\..\SharpGrammar\SharpGrammar.csproj" />
     </ItemGroup>
 
