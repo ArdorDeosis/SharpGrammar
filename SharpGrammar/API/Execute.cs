@@ -12,6 +12,6 @@ namespace SharpGrammar
         /// Produces no value.
         /// </summary>
         /// <param name="action">The action to execute.</param>
-        public static Processable<T> Action<T>(Action<IContext> action) => new ActionProcessable<T>(action);
+        public static Processable Action(Action<IContext> action) => new ActionProcessable(action);
     }
 }

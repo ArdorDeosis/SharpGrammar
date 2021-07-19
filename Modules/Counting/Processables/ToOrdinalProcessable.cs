@@ -2,7 +2,7 @@
 {
     internal record ToOrdinalProcessable : Processable<string>
     {
-        private Processable<int> number;
+        private readonly Processable<int> number;
 
         public ToOrdinalProcessable(Processable<int> number)
         {

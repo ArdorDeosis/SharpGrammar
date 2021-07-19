@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar.Counting
 {
-    internal record UnsetNumberProcessable<T> : Processable<T>
+    internal record UnsetNumberProcessable : Processable
     {
         private readonly string name;
         internal UnsetNumberProcessable(string name)
@@ -11,10 +11,6 @@ namespace SharpGrammar.Counting
         }
 
         /// <inheritdoc />
-        public override T Process(IContext context)
-        {
-            context.Get<INumberModule>().UnsetNumber(name);
-            return context.GetNullValue<T>();
-        }
+        public override void Process(IContext context) => context.Get<INumberModule>().UnsetNumber(name);
     }
 }

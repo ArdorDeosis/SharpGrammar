@@ -75,6 +75,14 @@ namespace SharpGrammar
         /// </summary>
         /// <param name="processable">The processable to be processed.</param>
         /// <param name="condition">The condition to be checked.</param>
+        public static ConditionProcessableInfo If(this Processable processable, Func<IContext, bool> condition) =>
+            new(processable, condition);
+        
+        /// <summary>
+        /// Processes the provided <see cref="Processable{T}"/> if <paramref name="condition"/> is true.
+        /// </summary>
+        /// <param name="processable">The processable to be processed.</param>
+        /// <param name="condition">The condition to be checked.</param>
         public static ConditionProcessableInfo<T> If<T>(this Processable<T> processable, Func<IContext, bool> condition) =>
             new(processable, condition);
 

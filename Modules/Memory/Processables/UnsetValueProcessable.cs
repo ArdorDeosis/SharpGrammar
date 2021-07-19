@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar.Memory
 {
-    internal record UnsetValueProcessable<T> : Processable<T>
+    internal record UnsetValueProcessable<T> : Processable
     {
         private readonly string name;
         internal UnsetValueProcessable(string name)
@@ -11,10 +11,6 @@ namespace SharpGrammar.Memory
         }
 
         /// <inheritdoc />
-        public override T Process(IContext context)
-        {
-            context.Get<IMemoryModule>().UnsetValue<T>(name);
-            return context.GetNullValue<T>();
-        }
+        public override void Process(IContext context) => context.Get<IMemoryModule>().UnsetValue<T>(name);
     }
 }

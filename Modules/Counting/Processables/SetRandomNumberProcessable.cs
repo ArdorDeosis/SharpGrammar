@@ -2,7 +2,7 @@ using System;
 
 namespace SharpGrammar.Counting
 {
-    internal record SetRandomNumberProcessable<T> : Processable<T>
+    internal record SetRandomNumberProcessable : Processable
     {
         private readonly string name;
         private readonly int minValue;
@@ -18,11 +18,10 @@ namespace SharpGrammar.Counting
         }
 
         /// <inheritdoc />
-        public override T Process(IContext context)
+        public override void Process(IContext context)
         {
             var n = minValue + context.GetRandomInt(maxValue - minValue + 1);
             context.Get<INumberModule>().SetNumber(name, n, overrideExistingValue);
-            return context.GetNullValue<T>();
         }
     }
 }

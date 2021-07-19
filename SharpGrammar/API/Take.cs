@@ -10,7 +10,8 @@ namespace SharpGrammar
     public static class Take
     {
         /// <summary>
-        /// A <see cref="NullProcessable{T}"/> that does and produces nothing.
+        /// A <see cref="NullProcessable{T}"/> that produces the <see cref="ITypeHandler{T}.NullValue"/> of the
+        /// <see cref="ITypeHandler{T}"/> bound to the context.
         /// </summary>
         public static Processable<T> Nothing<T>() => new NullProcessable<T>();
 
