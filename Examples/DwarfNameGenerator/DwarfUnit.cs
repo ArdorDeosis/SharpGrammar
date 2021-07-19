@@ -21,7 +21,12 @@ namespace DwarfNameGenerator
         private static Processable<string> UnitDescription =>
             Number.Get(UnitCount).ToOrdinal() + " Unit 1st Battalion\n" +
             Number.Get(UnitSize).Convert(n => n.ToString()) + " Dwarves, " +
-            Memory.Get<UnitType>(Specialization).Convert(x => x.ToString()) + "\n" +
+            Memory.Get<UnitType>(Specialization).Switch<UnitType, string>()
+                .Case(UnitType.Ranged, "mad archers")
+                .Case(UnitType.Melee, "fierce fighters")
+                .Case(UnitType.Siege, "some trebuchets")
+                .Case(UnitType.Scout, "sneaky scouts")+
+            "\n" +
             (DwarfDescription + "\n").Repeat(Number.Get(UnitSize));
 
         private static Processable<string> DwarfDescription =>
