@@ -9,9 +9,9 @@ namespace DwarfNameGenerator
         public string Concatenate(string lhs, string rhs) => lhs + rhs;
     }
     
-    public class UnitSpecializationHandler : ITypeHandler<UnitSpecialization>
+    public class UnitSpecializationHandler : ITypeHandler<UnitType>
     {
-        public UnitSpecialization NullValue => UnitSpecialization.Melee;
-        public UnitSpecialization Concatenate(UnitSpecialization lhs, UnitSpecialization rhs) => lhs;
+        public UnitType NullValue => UnitType.Melee;
+        public UnitType Concatenate(UnitType lhs, UnitType rhs) => lhs;
     }
 }

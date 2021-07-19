@@ -12,24 +12,34 @@ namespace DwarfNameGenerator
         
         public static Processable<string> Unit => Initialize + UnitDescription;
         
-        private static readonly Processable Initialize = 
-            Memory.Set(Specialization, Take.OneOf<UnitSpecialization>()) +
+        private static Processable Initialize => 
+            Memory.Set(Specialization, Take.OneOf<UnitType>()) +
             Number.Set(UnitCount, 0, false) +
             Number.Increment(UnitCount) +
-            Number.Set(UnitSize, 12);
+            Number.Set(UnitSize, Take.OneOf(12.WithWeight(5), 11.WithWeight(2), 10));
 
-        private static readonly Processable<string> UnitDescription =
+        private static Processable<string> UnitDescription =>
             Number.Get(UnitCount).ToOrdinal() + " Unit 1st Battalion\n" +
             Number.Get(UnitSize).Convert(n => n.ToString()) + " Dwarves, " +
-            Memory.Get<UnitSpecialization>(Specialization).Convert(x => x.ToString()) + "\n" +
-            ("   " + DwarfNameGrammar.Name + " " + DwarfNameGrammar.Name + "son\n").Repeat(Number.Get(UnitSize));
+            Memory.Get<UnitType>(Specialization).Convert(x => x.ToString()) + "\n" +
+            (DwarfDescription + "\n").Repeat(Number.Get(UnitSize));
+
+        private static Processable<string> DwarfDescription =>
+            "   " + DwarfNameGrammar.Name + " " + DwarfNameGrammar.Name + "son; ";
     }
 
-    public enum UnitSpecialization
+    public enum UnitType
     {
         Ranged,
         Melee,
         Siege,
         Scout
+    }
+
+    public enum ArmourType
+    {
+        Light,
+        Heavy,
+        Mixed
     }
 }

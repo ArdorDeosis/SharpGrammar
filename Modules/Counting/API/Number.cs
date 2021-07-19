@@ -12,7 +12,7 @@ namespace SharpGrammar.Counting
         /// <param name="name">Name of the number.</param>
         /// <param name="value">Value to set the number to.</param>
         /// <param name="override">Whether an existing number should be overridden.</param>
-        public static Processable Set(string name, int value, bool @override = true) =>
+        public static Processable Set(string name, Processable<int> value, bool @override = true) =>
             new SetNumberProcessable(name, value, @override);
 
         /// <summary>

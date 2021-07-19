@@ -9,7 +9,7 @@ namespace SharpGrammar
         private readonly Func<IContext, bool> condition;
         private Processable elseCase = new NullProcessable();
 
-        public ConditionProcessableInfo(Processable processable, Func<IContext, bool> condition)
+        internal ConditionProcessableInfo(Processable processable, Func<IContext, bool> condition)
         {
             this.processable = processable;
             this.condition = condition;
@@ -32,7 +32,7 @@ namespace SharpGrammar
         private readonly Func<IContext, bool> condition;
         private Processable<T> elseCase = new NullProcessable<T>();
 
-        public ConditionProcessableInfo(Processable<T> processable, Func<IContext, bool> condition)
+        internal ConditionProcessableInfo(Processable<T> processable, Func<IContext, bool> condition)
         {
             this.processable = processable;
             this.condition = condition;

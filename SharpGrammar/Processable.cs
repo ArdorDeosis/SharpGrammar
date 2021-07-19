@@ -22,6 +22,11 @@ namespace SharpGrammar
         /// </summary>
         public static Processable operator +(Processable lhs, Processable rhs) =>
             ProcessableList.Combine(lhs, rhs);
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+         public Processable<T> AsProcessable<T>() => new MaskedProcessable<T>(this);
     }
 
     /// <summary>
