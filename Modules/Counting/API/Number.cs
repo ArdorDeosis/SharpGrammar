@@ -1,4 +1,6 @@
-﻿namespace SharpGrammar.Counting
+﻿using System;
+
+namespace SharpGrammar.Counting
 {
     public static class Number
     {
@@ -61,7 +63,7 @@
         /// </summary>
         /// <param name="name">Name of the number.</param>
         /// <param name="defaultValue">Number to return if no number named <paramref name="name"/> exists.</param>
-        public static Processable<int> TryGet(string name, int defaultValue) =>
+        public static Processable<int> GetOrDefault(string name, int defaultValue) =>
             new GetNumberOrDefaultProcessable(name, defaultValue);
     }
 }

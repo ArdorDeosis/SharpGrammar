@@ -1,5 +1,7 @@
 ﻿using System;
 using SharpGrammar;
+using SharpGrammar.Counting;
+using SharpGrammar.Memory;
 
 namespace DwarfNameGenerator
 {
@@ -8,10 +10,12 @@ namespace DwarfNameGenerator
         private static void Main()
         {
             var context = new Context()
-                .BindTypeHandler(new StringHandler());
+                .BindTypeHandler(new StringHandler())
+                .BindTypeHandler(new UnitSpecializationHandler())
+                .BindModule<IMemoryModule>(new MemoryModule())
+                .BindModule<INumberModule>(new NumberModule());
             
-            for (var i = 0; i < 144; i++)
-                Console.WriteLine(DwarfNameGrammar.Name.Process(context));
+            Console.WriteLine(DwarfUnit.Unit.Process(context));
         }
     }
 }

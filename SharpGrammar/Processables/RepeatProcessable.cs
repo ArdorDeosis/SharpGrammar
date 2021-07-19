@@ -5,31 +5,20 @@ namespace SharpGrammar
     internal record RepeatProcessable<T> : Processable<T>
     {
         private readonly Processable<T> value;
-        private readonly int min;
-        private readonly int max;
+        private readonly Processable<int> count;
         private readonly bool preprocess;
 
-        internal RepeatProcessable(Processable<T> value, int min, int max, bool preprocess = false)
+        internal RepeatProcessable(Processable<T> value, Processable<int> count, bool preprocess = false)
         {
             this.value = value ?? throw new ArgumentNullException(nameof(value));
-            this.min = min;
-            this.max = max;
-            if (min < 0)
-                throw new ArgumentOutOfRangeException($"{nameof(min)} has to be >= 0.");
-            if (max < 0)
-                throw new ArgumentOutOfRangeException($"{nameof(max)} has to be >= 0.");
-            if (max < min)
-                throw new ArgumentOutOfRangeException($"{nameof(max)} has to be >= {nameof(min)}.");
-            this.min = min;
-            this.max = max;
+            this.count = count ?? throw new ArgumentNullException(nameof(count));
             this.preprocess = preprocess;
         }
 
         /// <inheritdoc />
         public override T Process(IContext context)
         {
-            var n = min + context.GetRandomInt(max - min + 1);
-            var ruleArray = new Processable<T>[n];
+            var ruleArray = new Processable<T>[count.Process(context)];
             Array.Fill(ruleArray, preprocess ? new ValueProcessable<T>(value.Process(context)) : value);
             return new ProcessableList<T>(ruleArray).Process(context);
         }
