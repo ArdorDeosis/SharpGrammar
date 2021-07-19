@@ -13,7 +13,7 @@ namespace SharpGrammar.Memory
         /// <inheritdoc />
         public override T Process(IContext context)
         {
-            if (!context.Get<IMemoryModule<T>>().TryGetValue(name, out Processable<T>? processable))
+            if (!context.Get<IMemoryModule>().TryGetValue(name, out Processable<T>? processable))
                 throw new GrammarProcessingException(nameof(GetValueProcessable<T>),
                     $"Value '{name}' does not exist in the current context.");
             return processable!.Process(context);
