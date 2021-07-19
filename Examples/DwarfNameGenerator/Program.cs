@@ -14,8 +14,9 @@ namespace DwarfNameGenerator
                 .BindTypeHandler(new UnitSpecializationHandler())
                 .BindModule<IMemoryModule>(new MemoryModule())
                 .BindModule<INumberModule>(new NumberModule());
-            
-            Console.WriteLine(DwarfUnit.Unit.Process(context));
+
+            var x = DwarfUnit.Unit + DwarfUnit.Unit;
+            Console.WriteLine(x.Process(context));
         }
     }
 }

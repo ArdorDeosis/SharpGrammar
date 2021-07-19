@@ -20,8 +20,10 @@ namespace SharpGrammar.Memory
 
             if (!variables.ContainsKey(typeof(T)))
                 variables.Add(typeof(T), new Dictionary<string, object>());
-            if (!variables[typeof(T)].ContainsKey(name) || @override)
+            if (!variables[typeof(T)].ContainsKey(name))
                 variables[typeof(T)].Add(name, value);
+            else if (@override)
+                variables[typeof(T)][name] = value;
         }
 
         /// <inheritdoc />
