@@ -20,14 +20,20 @@ namespace DwarfNameGenerator
 
         private static Processable<string> UnitDescription =>
             Number.Get(UnitCount).ToOrdinal() + " Unit 1st Battalion\n" +
-            Number.Get(UnitSize).Convert(n => n.ToString()) + " Dwarves, " +
-            Memory.Get<UnitType>(Specialization).Switch<UnitType, string>()
-                .Case(UnitType.Ranged, "mad archers")
-                .Case(UnitType.Melee, "fierce fighters")
-                .Case(UnitType.Siege, "some trebuchets")
-                .Case(UnitType.Scout, "sneaky scouts")+
-            "\n" +
+            Number.Get(UnitSize).Convert(n => n.ToString()) + " Dwarves, " + UnitTypeDescription+ "\n" +
             (DwarfDescription + "\n").Repeat(Number.Get(UnitSize));
+
+        private static Processable<string> UnitTypeDescription => Memory.Get<UnitType>(Specialization)
+            .Switch<UnitType, string>()
+            .Case(UnitType.Ranged, RangedUnitTypeDescription)
+            .Case(UnitType.Melee, MeleeUnitTypeDescription)
+            .Case(UnitType.Siege, SiegeUnitTypeDescription)
+            .Case(UnitType.Scout, ScoutUnitTypeDescription);
+        private static Processable<string> RangedUnitTypeDescription => nameof(RangedUnitTypeDescription);
+        private static Processable<string> MeleeUnitTypeDescription => nameof(MeleeUnitTypeDescription);
+        private static Processable<string> SiegeUnitTypeDescription => nameof(SiegeUnitTypeDescription);
+        private static Processable<string> ScoutUnitTypeDescription => nameof(ScoutUnitTypeDescription);
+        
 
         private static Processable<string> DwarfDescription =>
             "   " + DwarfNameGrammar.Name + " " + DwarfNameGrammar.Name + "son; ";
